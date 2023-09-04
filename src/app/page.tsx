@@ -1,9 +1,11 @@
+import SideBar from "./components/sideBar";
 
 
 export default function Home() {
   return (
-    <main >
-      
-    </main>
+    <div className="bg-my_bg_image bg-cover bg-fixed">
+              <SideBar />
+              
+            </div>
   )
 }
