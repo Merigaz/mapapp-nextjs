@@ -2,3 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+    .bg-body {
+        @apply bg-my_bg_image bg-cover bg-fixed
+    }
+    .sidebar{
+       @apply border-solid border-2 border-sky-500 min-h-screen w-60 flex flex-col justify-center items-center
+    }
+    .divlogin{
+        @apply flex flex-row justify-center align-middle
+    }
+}
+@layer components {
+    .btn-primary {
+        @apply w-48
+    }
+}

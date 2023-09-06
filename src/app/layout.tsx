@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import SessionWrapper from "@/libs/sessionProvider";
 import "./globals.css"
 import StyledComponentsRegistry from "@/libs/AntdRegistry";
+import SideBar from "./components/sideBar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,9 +24,10 @@ export default function RootLayout({
       <body className={inter.className}>
         <SessionWrapper>
           <StyledComponentsRegistry>
-          
+            <div className="bg-body">
+              <SideBar />
               {children}
-          
+            </div>
           </StyledComponentsRegistry>
         </SessionWrapper>
       </body>
