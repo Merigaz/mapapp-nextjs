@@ -11,6 +11,6 @@ export async function POST(request: Request) {
   });
   if (user && (await bcrypt.compare(body.password, user.password as string))) {
     const { password, ...userWithoutPass } = user;
-   return new Response(JSON.stringify(userWithoutPass),{status:200});
-  } else return new Response(JSON.stringify(null),{status:401});
+    return new Response(JSON.stringify(userWithoutPass), { status: 200 });
+  } else return new Response(JSON.stringify(null), { status: 401 });
 }

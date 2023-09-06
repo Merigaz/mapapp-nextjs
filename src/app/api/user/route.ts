@@ -1,7 +1,9 @@
 import prisma from "@/libs/prisma";
 import * as bcrypt from "bcrypt";
+import { getServerSession } from "next-auth";
 
 export async function POST(request: Request) {
+  const session = await getServerSession();
   const body: RequestBody = await request.json();
   const emailCreatedFound = await prisma.user.findFirst({
     where: { email: body.email },
@@ -20,6 +22,7 @@ export async function POST(request: Request) {
       data: {
         name: body.name,
         email: body.email,
+        role:body.role,
         password: await bcrypt.hash(body.password, 10),
         
       },

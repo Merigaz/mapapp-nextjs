@@ -7,6 +7,7 @@ import { authOptions } from "../api/auth/[...nextauth]/options";
 
 export default function AvatarUSer() {
     const { data: session } = useSession()
+    console.log ({session})
     if (session?.user?.image) {
         const img = session.user.image;
         return (<Avatar src={<img src={img} alt="avatar" className="avatar" />} />)
