@@ -10,9 +10,9 @@ export default function AvatarUSer() {
     console.log ({session})
     if (session?.user?.image) {
         const img = session.user.image;
-        return (<Avatar src={<img src={img} alt="avatar" className="avatar" />} />)
+        return (<Avatar src={<img src={img} alt="avatar" className="avatar" />}  shape="square"/>)
     } else {
-        return (<Avatar icon={<UserOutlined />} />)
+        return (<Avatar icon={<UserOutlined />} shape="square"/>)
     }
 }
 export async function getServerSideProps() {

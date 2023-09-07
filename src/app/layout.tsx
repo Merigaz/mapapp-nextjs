@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import SessionWrapper from "@/libs/sessionProvider";
-import "./globals.css"
-import StyledComponentsRegistry from "@/libs/AntdRegistry";
+import "./globals.css";
 import SideBar from "./components/sideBar";
+import MenuComponent from "./components/menuComponent";
+import AntdThemeProvider from "@/libs/antdThemeProvider";
+import ContextProvider from "@/libs/createContext";
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,22 +20,21 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-
-
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <AntdThemeProvider>
         <SessionWrapper>
-          <StyledComponentsRegistry>
-            <div className="bg-body">
-              <SideBar />
-              {children}
-            </div>
-          </StyledComponentsRegistry>
+          <body className={inter.className}>
+            <SideBar />
+            <main>
+              <ContextProvider>
+                {children}
+                <MenuComponent />
+              </ContextProvider>
+            </main>
+          </body>
         </SessionWrapper>
-      </body>
-    </html >
+      </AntdThemeProvider>
+    </html>
   );
 }
-
-9

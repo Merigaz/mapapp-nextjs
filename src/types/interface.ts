@@ -19,3 +19,9 @@ interface RequestBody {
   role?: string;
 }
 
+interface ZoomContextType {
+  zoom: number;
+  setZoom: (zoom: number) => void;
+  handleZoomIn?: () => void;
+  handleZoomOut?: () => void;
+}
