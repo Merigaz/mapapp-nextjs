@@ -3,7 +3,7 @@ import { createContext, useState } from "react";
 
 export const ZoomContext = createContext<ZoomContextType>({
   zoom: 20,
-  setZoom: (zoom: number) => {},
+  setZoom: () => {},
 });
 
 const ContextProvider = ({ children }: PropChildren) => {

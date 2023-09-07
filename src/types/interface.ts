@@ -21,7 +21,5 @@ interface RequestBody {
 
 interface ZoomContextType {
   zoom: number;
-  setZoom: (zoom: number) => void;
-  handleZoomIn?: () => void;
-  handleZoomOut?: () => void;
+  setZoom: React.Dispatch<React.SetStateAction<number>>
 }
