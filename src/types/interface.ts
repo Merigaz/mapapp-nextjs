@@ -25,7 +25,6 @@ interface ZoomContextType {
   zoom: number;
   setZoom: React.Dispatch<React.SetStateAction<number>>;
 }
-
 interface FormAdressesType {
   name: string;
   id: number;
