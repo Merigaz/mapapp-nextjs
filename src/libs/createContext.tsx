@@ -2,12 +2,12 @@
 import { createContext, useState } from "react";
 
 export const ZoomContext = createContext<ZoomContextType>({
-  zoom: 20,
+  zoom: 12,
   setZoom: () => {},
 });
 
 const ContextProvider = ({ children }: PropChildren) => {
-  const [zoom, setZoom] = useState(20);
+  const [zoom, setZoom] = useState(12);
   return (
     <ZoomContext.Provider value={{ zoom, setZoom, }}>
       {children}

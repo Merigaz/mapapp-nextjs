@@ -5,7 +5,14 @@ const theme: ThemeConfig = {
     fontSize: 16,
     colorPrimary: "#A48C59",
     colorPrimaryText: "#fcc501",
-    colorText: "#343D4B",
+    colorText: "#C3B984",
+  },
+  components: {
+    Menu: {
+      colorPrimary: "#E6DEB7",
+      itemColor: "#C3B984",
+      itemHoverColor: "#E6DEB7",
+    },
   },
 };
 

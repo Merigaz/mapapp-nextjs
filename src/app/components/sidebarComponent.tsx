@@ -1,10 +1,10 @@
 "use client";
 import { ConfigProvider} from "antd";
 import theme from "../theme/themeConfig";
-import LogoutButton from "./logout";
+import LogoutButton from "./logoutComponent";
 
 
-export default function SideBar() {
+export default function sidebarComponent() {
  
   return (
     <ConfigProvider theme={theme}>

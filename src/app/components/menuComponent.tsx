@@ -1,21 +1,17 @@
-"use client"
+"use client";
 
 import { ZoomContext } from "@/libs/createContext";
 import { ZoomInOutlined, ZoomOutOutlined } from "@ant-design/icons";
-import { Menu, MenuProps, Tooltip } from "antd";
+import { ConfigProvider, Menu, MenuProps, Tooltip } from "antd";
+import Link from "next/link";
 import { useContext, useState } from "react";
+import theme from "../theme/themeConfig";
+import { StyleMenu } from "@/libs/styles";
 
 export default function MenuComponent() {
-  const [key, setKey]= useState ("map")
-  const {zoom,setZoom} = useContext(ZoomContext);
-  
+  const [key, setKey] = useState("map");
+  const { setZoom } = useContext(ZoomContext);
 
-  const handleZoomIn  = () => {
-    setZoom((prevZoom) => prevZoom + 1 );
-  };
-  const handleZoomOut = () => {
-    setZoom((prevZoom) => prevZoom - 1);
-  };
   const items: MenuProps["items"] = [
     {
       label: (
@@ -24,7 +20,9 @@ export default function MenuComponent() {
         </Tooltip>
       ),
       key: "ZoomIn",
-      onClick: handleZoomIn,
+      onClick: () => {
+        setZoom((prevZoom) => prevZoom + 1);
+      },
     },
     {
       label: (
@@ -33,19 +31,33 @@ export default function MenuComponent() {
         </Tooltip>
       ),
       key: "ZoomOut",
-      onClick: handleZoomOut,
+      onClick: () => {
+        setZoom((prevZoom) => prevZoom - 1);
+      },
     },
     {
-      label: "Mapa",
+      label: <Link href="/">Mapa</Link>,
       key: "map",
+      onClick: () => {
+        setKey("map");
+      },
+    },
+    {
+      label: <Link href="/form">Formulario</Link>,
+      key: "form",
+      onClick: () => {
+        setKey("form");
+      },
     },
   ];
   return (
-    <Menu
-      selectedKeys={[key]}
-      mode="horizontal"
-      items={items}
-      className="menu"
-    />
+    <ConfigProvider theme={theme}>
+      <Menu
+        selectedKeys={[key]}
+        mode="horizontal"
+        items={items}
+        style={StyleMenu}
+      />
+    </ConfigProvider>
   );
 }

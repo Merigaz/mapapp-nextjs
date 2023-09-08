@@ -1,11 +1,11 @@
 "use client"
 import { Button } from "antd";
 
-export default function ButtonCustom ({typeButton,handleClickButton,buttonClassName,textButton,keyButton,iconButton,sizeButton}:ButtonsProps) {
+export default function ButtonCustom ({typeButton,htmlTypeButton,handleClickButton,buttonClassName,textButton,keyButton,iconButton,sizeButton,styleButton}:ButtonsProps) {
 
   return ( 
   <>
-  <Button className={buttonClassName}type={typeButton} size={sizeButton} onClick={handleClickButton} icon={iconButton} >{textButton}</Button>
+  <Button className={buttonClassName} style={styleButton} type={typeButton} htmlType={htmlTypeButton} size={sizeButton} onClick={handleClickButton} icon={iconButton} >{textButton}</Button>
   </>
   
   );

@@ -6,6 +6,12 @@
   body {
     @apply bg-my_bg_image bg-cover bg-fixed flex flex-row;
   }
+  main {
+    @apply flex flex-col w-full;
+  }
+  .div-form-page {
+    @apply flex justify-center text-center w-full h-full;
+  }
   .sidebar {
     @apply border-solid border-2 border-sky-500 min-h-screen w-60 flex flex-col justify-center items-center;
   }
@@ -15,15 +21,10 @@
   .mapclassname {
     @apply w-full h-full;
   }
-  main {
-    @apply flex flex-col w-full;
-  }
 }
+
 @layer components {
-    .menu{
-        @apply flex justify-center align-middle
-    }
-  .btn-primary {
-    @apply w-36;
+  .container-form {
+    @apply border-2 border-[#C3B984] self-center p-10 backdrop-blur-lg rounded-lg
   }
 }

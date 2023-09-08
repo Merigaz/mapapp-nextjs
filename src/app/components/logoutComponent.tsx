@@ -1,12 +1,12 @@
 import { LogoutOutlined } from "@ant-design/icons";
 import { signOut } from "next-auth/react";
 import ButtonCustom from "./buttonCustom";
-import AvatarUSer from "./avatar";
+import AvatarUSer from "./avatarComponent";
 
-export default function LogoutButton() {
-    const ButtonPropsLogout: ButtonsProps = {
+
+export default function LogoutComponent() {
+    const ButtonLogoutProps: ButtonsProps = {
         typeButton: "primary",
-        buttonClassName: "btn-primary",
         handleClickButton: () => signOut(),
         textButton: "Cerrar sesión",
         iconButton: <LogoutOutlined />,
@@ -14,7 +14,7 @@ export default function LogoutButton() {
       };
   return (
     <div className="divlogin">
-      <ButtonCustom {...ButtonPropsLogout} />
+      <ButtonCustom {...ButtonLogoutProps} />
       <AvatarUSer />
     </div>
   );
