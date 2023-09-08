@@ -1,7 +1,6 @@
 import React from "react";
 import { ConfigProvider, DatePicker, Form, Input } from "antd";
 import theme from "../theme/themeConfig";
-import { styleForm } from "@/libs/styles";
 import ButtonCustom from "./buttonCustom";
 
 export default function FormComponent() {
@@ -28,7 +27,6 @@ export default function FormComponent() {
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
           autoComplete="off"
-          style={styleForm}
           requiredMark={false}
         >
           <Form.Item<FormAdressesType>

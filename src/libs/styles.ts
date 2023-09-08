@@ -1,6 +1,4 @@
-export const styleForm = {
-  alignSelf: "center",
-} 
+
 export const StyleMenu = {
   display: "flex",
   justifyContent: "center",
