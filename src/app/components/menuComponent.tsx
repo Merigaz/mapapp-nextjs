@@ -1,16 +1,22 @@
 "use client";
 
 import { ZoomContext } from "@/libs/createContext";
-import { ZoomInOutlined, ZoomOutOutlined } from "@ant-design/icons";
-import { ConfigProvider, Menu, MenuProps, Tooltip } from "antd";
+import {
+  CloudDownloadOutlined,
+  ZoomInOutlined,
+  ZoomOutOutlined,
+} from "@ant-design/icons";
+import {ConfigProvider, Menu, MenuProps, Tooltip } from "antd";
 import Link from "next/link";
 import { useContext, useState } from "react";
 import theme from "../theme/themeConfig";
 import { StyleMenu } from "@/libs/styles";
+import { useSession } from "next-auth/react";
 
 export default function MenuComponent() {
   const [key, setKey] = useState("map");
   const { setZoom } = useContext(ZoomContext);
+  const { data: session } = useSession();
 
   const items: MenuProps["items"] = [
     {
@@ -21,7 +27,7 @@ export default function MenuComponent() {
       ),
       key: "ZoomIn",
       onClick: () => {
-        setZoom((prevZoom) => prevZoom + 1);
+        setZoom((prevZoom: number) => prevZoom + 1);
       },
     },
     {
@@ -32,7 +38,7 @@ export default function MenuComponent() {
       ),
       key: "ZoomOut",
       onClick: () => {
-        setZoom((prevZoom) => prevZoom - 1);
+        setZoom((prevZoom: number) => prevZoom - 1);
       },
     },
     {
@@ -49,7 +55,16 @@ export default function MenuComponent() {
         setKey("form");
       },
     },
+    session?.user?.role === "admin"
+      ? {
+          label: "Descargar",
+          key: "download",
+          onClick: () => {},
+          icon: <CloudDownloadOutlined />,
+        }
+      : null,
   ];
+
   return (
     <ConfigProvider theme={theme}>
       <Menu

@@ -1,4 +1,5 @@
 "use client";
+import { PropChildren, ZoomContextType } from "@/types/interface";
 import { createContext, useState } from "react";
 
 export const ZoomContext = createContext<ZoomContextType>({

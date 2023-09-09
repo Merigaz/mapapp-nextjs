@@ -1,4 +1,5 @@
 import prisma from "@/libs/prisma";
+import { RequestBody } from "@/types/interface";
 import * as bcrypt from "bcrypt";
 
 export async function POST(request: Request) {
