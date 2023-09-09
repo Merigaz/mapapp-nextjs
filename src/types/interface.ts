@@ -1,4 +1,5 @@
-interface ButtonsProps {
+import type { TabsProps } from "antd";
+export interface ButtonsProps {
   typeButton?: "link" | "text" | "default" | "primary" | "dashed" | undefined;
   handleClickButton?: React.MouseEventHandler<HTMLElement>;
   buttonClassName?: string;
@@ -6,32 +7,42 @@ interface ButtonsProps {
   keyButton?: string;
   iconButton?: React.ReactNode;
   sizeButton?: "large" | "middle" | "small";
-  styleButton?: {}
-  htmlTypeButton?: "submit" 
+  styleButton?: {};
+  htmlTypeButton?: "submit";
+}
+export interface TabProps {
+  keyTabs: string;
+  items: TabsProps["items"];
+  onChange: (key: string) => void;
+  styleTab: {};
 }
 
-interface PropChildren {
+export interface PropChildren {
   children: React.ReactNode;
 }
 
-interface RequestBody {
+export interface RequestBody {
   name?: string;
   email: string;
   password: string;
   role?: string;
 }
 
-interface ZoomContextType {
+export interface ZoomContextType {
   zoom: number;
   setZoom: React.Dispatch<React.SetStateAction<number>>;
 }
-interface FormAdressesType {
+export interface FormAdressesType {
   name: string;
   id: number;
   phone: number;
   address: string;
   neighborhood: string;
   date: Date;
-  votetable: number;
-  placevote: string;
+  table: number;
+  votingplace: string;
+}
+export interface FormVotingPlaceType extends FormAdressesType {
+  votingplace: string;
+  addressvotingplace: string;
 }

@@ -2,6 +2,7 @@ import { LogoutOutlined } from "@ant-design/icons";
 import { signOut } from "next-auth/react";
 import ButtonCustom from "./buttonCustom";
 import AvatarUSer from "./avatarComponent";
+import { ButtonsProps } from "@/types/interface";
 
 
 export default function LogoutComponent() {

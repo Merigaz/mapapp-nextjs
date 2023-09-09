@@ -2,8 +2,9 @@ import React from "react";
 import { ConfigProvider, DatePicker, Form, Input } from "antd";
 import theme from "../theme/themeConfig";
 import ButtonCustom from "./buttonCustom";
+import { ButtonsProps, FormAdressesType } from "@/types/interface";
 
-export default function FormComponent() {
+export default function FormAddressComponent() {
   const onFinish = (values: any) => {
     console.log("Success:", values);
   };
@@ -20,7 +21,6 @@ export default function FormComponent() {
   };
   return (
     <div className="container-form">
-      <ConfigProvider theme={theme}>
         <Form
           layout="horizontal"
           name="basic"
@@ -77,7 +77,6 @@ export default function FormComponent() {
             <ButtonCustom {...ButtonSubmitProps} />
           </Form.Item>
         </Form>
-      </ConfigProvider>
     </div>
   );
 }
