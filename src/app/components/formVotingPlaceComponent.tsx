@@ -4,10 +4,14 @@ import ButtonCustom from "./buttonCustom";
 import { ButtonsProps, FormType } from "@/types/interface";
 
 export default function FormVotingPlaceComponent() {
-  const onFinish = (values: any) => {
+  const [form] = Form.useForm();
+  const onFinish = (values: FormType) => {
+    form.resetFields()
     console.log("Success:", values);
   };
-
+  const onFinishFailed = (errorInfo: any) => {
+    console.log('Failed:', errorInfo);
+  };
   const ButtonSubmitProps: ButtonsProps = {
     typeButton: "primary",
     textButton: "Aceptar",
@@ -19,6 +23,7 @@ export default function FormVotingPlaceComponent() {
     <div className="container-form">
       <Form
         layout="horizontal"
+        onFinishFailed={onFinishFailed}
         onFinish={onFinish}
         autoComplete="off"
         requiredMark={false}

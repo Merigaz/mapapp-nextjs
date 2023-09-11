@@ -34,6 +34,11 @@ export interface ZoomContextType {
   zoom: number;
   setZoom: React.Dispatch<React.SetStateAction<number>>;
 }
+
+export interface ErrorContextType {
+  error: boolean;
+  setError: React.Dispatch<React.SetStateAction<boolean>>;
+}
 export interface FormType extends NextApiRequest {
   name: string;
   id: number;

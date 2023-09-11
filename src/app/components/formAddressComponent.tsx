@@ -1,15 +1,27 @@
-import React from "react";
-import { DatePicker, Form, Input } from "antd";
+"use client";
+import React, { useContext } from "react";
+import { DatePicker, Form, Input, Modal } from "antd";
 import ButtonCustom from "./buttonCustom";
 import { ButtonsProps, FormType } from "@/types/interface";
 import { PostFormData } from "@/libs/handlers";
+import { ErrorContext } from "@/libs/createContext";
 
 export default function FormAddressComponent() {
+  const { error, setError } = useContext(ErrorContext);
+  const [form] = Form.useForm();
   const onFinish = (values: FormType) => {
-    const url = "";
-    PostFormData(values, url);
+    try {
+      form.resetFields();
+      const url = "http://localhost:3000/api/form";
+      PostFormData(values, url);
+    } catch {
+      setError(true)
+      console.log("caca");
+    }
   };
-
+  const onFinishFailed = (errorInfo: any) => {
+    setError(true);
+  };
   const ButtonSubmitProps: ButtonsProps = {
     typeButton: "primary",
     textButton: "Aceptar",
@@ -18,10 +30,18 @@ export default function FormAddressComponent() {
     styleButton: { marginTop: "16px" },
   };
   return (
+    
+    
     <div className="container-form">
+      <Modal title="Basic Modal" open={error} >
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+      </Modal>
       <Form
         layout="horizontal"
         onFinish={onFinish}
+        onFinishFailed={onFinishFailed}
         autoComplete="off"
         requiredMark={false}
       >

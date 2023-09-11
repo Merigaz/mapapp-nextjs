@@ -7,5 +7,9 @@ export async function PostFormData(values: FormType, url: string) {
     headers: {
       "content-type": "application/json",
     },
-  }).catch((e) => console.log("error"));
+  })
+  if (!req.ok){
+    throw new Error ("Error")
+  }
+  
 }
