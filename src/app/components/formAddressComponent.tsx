@@ -1,17 +1,15 @@
 import React from "react";
-import { ConfigProvider, DatePicker, Form, Input } from "antd";
-import theme from "../theme/themeConfig";
+import { DatePicker, Form, Input } from "antd";
 import ButtonCustom from "./buttonCustom";
-import { ButtonsProps, FormAdressesType } from "@/types/interface";
+import { ButtonsProps, FormType } from "@/types/interface";
+import { PostFormData } from "@/libs/handlers";
 
 export default function FormAddressComponent() {
-  const onFinish = (values: any) => {
-    console.log("Success:", values);
+  const onFinish = (values: FormType) => {
+    const url = "";
+    PostFormData(values, url);
   };
 
-  const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
-  };
   const ButtonSubmitProps: ButtonsProps = {
     typeButton: "primary",
     textButton: "Aceptar",
@@ -21,62 +19,60 @@ export default function FormAddressComponent() {
   };
   return (
     <div className="container-form">
-        <Form
-          layout="horizontal"
-          name="basic"
-          onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
-          autoComplete="off"
-          requiredMark={false}
+      <Form
+        layout="horizontal"
+        onFinish={onFinish}
+        autoComplete="off"
+        requiredMark={false}
+      >
+        <Form.Item<FormType>
+          label="Nombre"
+          name="name"
+          rules={[{ required: true, message: "Digite su nombre!" }]}
         >
-          <Form.Item<FormAdressesType>
-            label="Nombre"
-            name="name"
-            rules={[{ required: true, message: "Digite su nombre!" }]}
-          >
-            <Input />
-          </Form.Item>
+          <Input />
+        </Form.Item>
 
-          <Form.Item<FormAdressesType>
-            label="Cedula"
-            name="id"
-            rules={[{ required: true, message: "Digite su cedula!" }]}
-          >
-            <Input />
-          </Form.Item>
+        <Form.Item<FormType>
+          label="Cedula"
+          name="id"
+          rules={[{ required: true, message: "Digite su cedula!" }]}
+        >
+          <Input />
+        </Form.Item>
 
-          <Form.Item<FormAdressesType>
-            label="Celular"
-            name="phone"
-            rules={[{ required: true, message: "Digite su celular!" }]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item<FormAdressesType>
-            label="Dirección"
-            name="address"
-            rules={[{ required: true, message: "Digite su dirección!" }]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item<FormAdressesType>
-            label="Barrio"
-            name="neighborhood"
-            rules={[{ required: true, message: "Digite su barrio!" }]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item<FormAdressesType>
-            label="Fecha de ingreso"
-            name="date"
-            rules={[{ required: true, message: "Seleccione fecha!" }]}
-          >
-            <DatePicker format="YYYY-MM-DD" />
-          </Form.Item>
-          <Form.Item>
-            <ButtonCustom {...ButtonSubmitProps} />
-          </Form.Item>
-        </Form>
+        <Form.Item<FormType>
+          label="Celular"
+          name="phone"
+          rules={[{ required: true, message: "Digite su celular!" }]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item<FormType>
+          label="Dirección"
+          name="address"
+          rules={[{ required: true, message: "Digite su dirección!" }]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item<FormType>
+          label="Barrio"
+          name="neighborhood"
+          rules={[{ required: true, message: "Digite su barrio!" }]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item<FormType>
+          label="Fecha de ingreso"
+          name="date"
+          rules={[{ required: true, message: "Seleccione fecha!" }]}
+        >
+          <DatePicker format="YYYY-MM-DD" />
+        </Form.Item>
+        <Form.Item>
+          <ButtonCustom {...ButtonSubmitProps} />
+        </Form.Item>
+      </Form>
     </div>
   );
 }

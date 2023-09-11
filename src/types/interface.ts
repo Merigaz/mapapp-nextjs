@@ -1,4 +1,6 @@
-import type { TabsProps } from "antd";
+import type { FormProps, TabsProps } from "antd";
+import { NextApiRequest } from "next";
+
 export interface ButtonsProps {
   typeButton?: "link" | "text" | "default" | "primary" | "dashed" | undefined;
   handleClickButton?: React.MouseEventHandler<HTMLElement>;
@@ -32,7 +34,7 @@ export interface ZoomContextType {
   zoom: number;
   setZoom: React.Dispatch<React.SetStateAction<number>>;
 }
-export interface FormAdressesType {
+export interface FormType extends NextApiRequest {
   name: string;
   id: number;
   phone: number;
@@ -40,9 +42,6 @@ export interface FormAdressesType {
   neighborhood: string;
   date: Date;
   table: number;
-  votingplace: string;
-}
-export interface FormVotingPlaceType extends FormAdressesType {
   votingplace: string;
   addressvotingplace: string;
 }
