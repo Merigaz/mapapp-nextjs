@@ -1,44 +1,31 @@
 "use client";
-import React, { useContext } from "react";
-import { DatePicker, Form, Input, Modal } from "antd";
-import ButtonCustom from "./buttonCustom";
-import { ButtonsProps, FormType } from "@/types/interface";
-import { PostFormData } from "@/libs/handlers";
+import React, { useContext, useEffect } from "react";
+import { Button, DatePicker, Form, Input, Modal } from "antd";
+import { FormType } from "@/types/interface";
 import { ErrorContext } from "@/libs/createContext";
+import { PostFormData } from "@/libs/handlers";
 
 export default function FormAddressComponent() {
   const { error, setError } = useContext(ErrorContext);
   const [form] = Form.useForm();
+
   const onFinish = (values: FormType) => {
     try {
       form.resetFields();
-      const url = "http://localhost:3000/api/form";
+      const url = "/address";
       PostFormData(values, url);
     } catch {
-      setError(true)
+      setError(true);
       console.log("caca");
     }
   };
   const onFinishFailed = (errorInfo: any) => {
     setError(true);
   };
-  const ButtonSubmitProps: ButtonsProps = {
-    typeButton: "primary",
-    textButton: "Aceptar",
-    htmlTypeButton: "submit",
-    sizeButton: "middle",
-    styleButton: { marginTop: "16px" },
-  };
   return (
-    
-    
     <div className="container-form">
-      <Modal title="Basic Modal" open={error} >
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-      </Modal>
       <Form
+        form={form}
         layout="horizontal"
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
@@ -90,7 +77,9 @@ export default function FormAddressComponent() {
           <DatePicker format="YYYY-MM-DD" />
         </Form.Item>
         <Form.Item>
-          <ButtonCustom {...ButtonSubmitProps} />
+          <Button type="primary" htmlType="submit">
+            Submit
+          </Button>
         </Form.Item>
       </Form>
     </div>

@@ -1,27 +1,22 @@
 import React from "react";
-import { Form, Input } from "antd";
-import ButtonCustom from "./buttonCustom";
-import { ButtonsProps, FormType } from "@/types/interface";
+import { Button, Form, Input } from "antd";
+import { FormType } from "@/types/interface";
 
 export default function FormVotingPlaceComponent() {
+  
   const [form] = Form.useForm();
   const onFinish = (values: FormType) => {
-    form.resetFields()
+    form.resetFields();
     console.log("Success:", values);
   };
   const onFinishFailed = (errorInfo: any) => {
-    console.log('Failed:', errorInfo);
+    console.log("Failed:", errorInfo);
   };
-  const ButtonSubmitProps: ButtonsProps = {
-    typeButton: "primary",
-    textButton: "Aceptar",
-    htmlTypeButton: "submit",
-    sizeButton: "middle",
-    styleButton: { marginTop: "16px" },
-  };
+
   return (
     <div className="container-form">
       <Form
+        form={form}
         layout="horizontal"
         onFinishFailed={onFinishFailed}
         onFinish={onFinish}
@@ -50,7 +45,9 @@ export default function FormVotingPlaceComponent() {
         </Form.Item>
 
         <Form.Item>
-          <ButtonCustom {...ButtonSubmitProps} />
+          <Button type="primary" htmlType="submit">
+            Submit
+          </Button>
         </Form.Item>
       </Form>
     </div>

@@ -16,7 +16,7 @@ export interface TabProps {
   keyTabs: string;
   items: TabsProps["items"];
   onChange: (key: string) => void;
-  styleTab: {};
+  styleTab?: {};
 }
 
 export interface PropChildren {

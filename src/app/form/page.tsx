@@ -24,7 +24,7 @@ export default function Form() {
       },
     ],
     keyTabs: "1",
-    styleTab: { alignSelf: "center" },
+    
   };
 
   return (
