@@ -11,12 +11,11 @@ export default function FormAddressComponent() {
 
   const onFinish = (values: FormType) => {
     try {
-      form.resetFields();
       const url = "/address";
+      console.log(values);
       PostFormData(values, url);
     } catch {
       setError(true);
-      console.log("caca");
     }
   };
   const onFinishFailed = (errorInfo: any) => {
@@ -57,7 +56,7 @@ export default function FormAddressComponent() {
         </Form.Item>
         <Form.Item<FormType>
           label="Dirección"
-          name="address"
+          name="addressname"
           rules={[{ required: true, message: "Digite su dirección!" }]}
         >
           <Input />
@@ -66,6 +65,20 @@ export default function FormAddressComponent() {
           label="Barrio"
           name="neighborhood"
           rules={[{ required: true, message: "Digite su barrio!" }]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item<FormType>
+          label="Mesa"
+          name="table"
+          rules={[{ required: true, message: "Digite la mesa de votación!" }]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item<FormType>
+          label="idvotingplace"
+          name="idvotingplace"
+          rules={[{ required: true, message: "Digite la mesa de votación!" }]}
         >
           <Input />
         </Form.Item>

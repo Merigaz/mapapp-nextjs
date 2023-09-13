@@ -41,12 +41,13 @@ export interface ErrorContextType {
 }
 export interface FormType extends NextApiRequest {
   name: string;
-  id: number;
-  phone: number;
-  address: string;
+  id: string;
+  phone: string;
+  addressname: string;
   neighborhood: string;
   date: Date;
-  table: number;
+  table: string;
+  idvotingplace: string;
   votingplace: string;
   addressvotingplace: string;
 }

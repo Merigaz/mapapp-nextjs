@@ -63,14 +63,12 @@ model VotingPlace {
 model Address {
   idaddress String @id @default(cuid())
   name String
-  id String @unique
+  id Int @unique
   phone Int
-  address String
+  addressname String
   neighborhood String
   date DateTime
-  table String
+  table Int
   pollingplace VotingPlace @relation(fields: [idvotingplace], references: [id])
   idvotingplace String
-  votingplace String
-  addressvotingplace String
 }
