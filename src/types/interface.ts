@@ -39,9 +39,9 @@ export interface ErrorContextType {
   error: boolean;
   setError: React.Dispatch<React.SetStateAction<boolean>>;
 }
-export interface FormType extends NextApiRequest {
+export interface FormType  {
   name: string;
-  id: string;
+  id: string ;
   phone: string;
   addressname: string;
   neighborhood: string;

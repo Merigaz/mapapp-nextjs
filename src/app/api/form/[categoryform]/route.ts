@@ -22,9 +22,12 @@ export async function POST(
         return new Response(JSON.stringify(vote), { status: 200 });
       case "address":
         const bodyaddress: FormType = await request.json();
+        //context: doesnt matter if i use type number because ...
+        //the form submit a string so prisma throw an error of type because is expecting an integer
+        // I did this on purpose because setting type number in the form, is overengineer that simple form and i want to keep this readable
         const id = parseInt(bodyaddress.id);
-        const phone = parseInt(bodyaddress.phone)
-        const table = parseInt(bodyaddress.table)
+        const phone = parseInt(bodyaddress.phone);
+        const table = parseInt(bodyaddress.table);
         const address = await prisma.votingPlace.update({
           where: { id: bodyaddress.idvotingplace },
           data: {

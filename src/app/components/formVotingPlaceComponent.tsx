@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useContext } from "react";
 import { Button, Form, Input } from "antd";
 import { FormType } from "@/types/interface";
@@ -19,6 +19,7 @@ export default function FormVotingPlaceComponent() {
   };
   const onFinishFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
+    setError(true);
   };
 
   return (
@@ -61,4 +62,3 @@ export default function FormVotingPlaceComponent() {
     </div>
   );
 }
-

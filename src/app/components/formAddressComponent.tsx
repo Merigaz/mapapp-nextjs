@@ -1,5 +1,5 @@
 "use client";
-import React, { useContext, useEffect } from "react";
+import React, { useContext} from "react";
 import { Button, DatePicker, Form, Input, Modal } from "antd";
 import { FormType } from "@/types/interface";
 import { ErrorContext } from "@/libs/createContext";
@@ -19,8 +19,10 @@ export default function FormAddressComponent() {
     }
   };
   const onFinishFailed = (errorInfo: any) => {
+    console.log("Failed:", errorInfo)
     setError(true);
   };
+
   return (
     <div className="container-form">
       <Form
