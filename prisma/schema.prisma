@@ -71,4 +71,6 @@ model Address {
   table Int
   pollingplace VotingPlace @relation(fields: [idvotingplace], references: [id])
   idvotingplace String
+  votingplace String
+  addressvotingplace String
 }

@@ -1,18 +1,20 @@
 import prisma from "@/libs/prisma";
-import { FormType } from "@/types/interface";
+import { FormType, VotingPlace } from "@/types/interface";
 import { authOptions } from "../../auth/[...nextauth]/options";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
+import { Prisma } from "@prisma/client";
 export async function POST(
   request: Request,
   { params }: { params: { categoryform: string } }
 ) {
   const session = await getServerSession(authOptions);
   const categoryform = params.categoryform;
+
   if (session && session?.user.role === "admin") {
     switch (categoryform) {
       case "vote":
-        const bodyvote: FormType = await request.json();
+        const bodyvote: VotingPlace = await request.json();
         const vote = await prisma.votingPlace.create({
           data: {
             votingplace: bodyvote.votingplace,
@@ -28,9 +30,12 @@ export async function POST(
         const id = parseInt(bodyaddress.id);
         const phone = parseInt(bodyaddress.phone);
         const table = parseInt(bodyaddress.table);
-        const address = await prisma.votingPlace.update({
+        const pollingplace = await prisma.votingPlace.findUnique({
           where: { id: bodyaddress.idvotingplace },
-          data: {
+        });
+        let datapollingplace: Prisma.VotingPlaceUpdateInput = {};
+        if (pollingplace) {
+          datapollingplace = {
             addresses: {
               create: {
                 name: bodyaddress.name,
@@ -40,10 +45,17 @@ export async function POST(
                 neighborhood: bodyaddress.neighborhood,
                 date: bodyaddress.date,
                 table: table,
+                votingplace: pollingplace.votingplace,
+                addressvotingplace: pollingplace.addressvotingplace,
               },
             },
-          },
+          };
+        }
+        const address = await prisma.votingPlace.update({
+          where: { id: bodyaddress.idvotingplace },
+          data: datapollingplace,
         });
+
         return new Response(JSON.stringify(address), { status: 200 });
 
       default:
