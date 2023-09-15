@@ -51,3 +51,12 @@ export interface FormType  {
   votingplace: string;
   addressvotingplace: string;
 }
+
+export interface VotingPlace {
+  
+    id: string,
+    votingplace: string,
+    addressvotingplace: string,
+  
+  
+}

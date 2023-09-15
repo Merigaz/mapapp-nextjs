@@ -1,16 +1,26 @@
 import { FormType } from "@/types/interface";
 
-
-export async function PostFormData(values: FormType, url: string) {
-  const req = await fetch(`${process.env.NEXT_PUBLIC_URL_FORM_DATA}${url}`, {
-    method: "POST",
-    body: JSON.stringify(values),
+export async function HandlerFormData(
+  url: string,
+  method: string,
+  values?: FormType
+) {
+  const requestOptions: RequestInit = {
+    method: method.toUpperCase(), // Convert method to uppercase
     headers: {
-      "content-type": "application/json",
+      "Content-Type": "application/json",
     },
-  });
+  };
+  if (values) {
+    requestOptions.body = JSON.stringify(values);
+  }
+
+  const req = await fetch(
+    `${process.env.NEXT_PUBLIC_URL_FORM_DATA}${url}`,
+    requestOptions
+  );
   if (!req.ok) {
     throw new Error("Error");
   }
-  return console.log(req);
+  return req.json()
 }

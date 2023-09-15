@@ -1,25 +1,42 @@
 "use client";
-import React, { useContext} from "react";
-import { Button, DatePicker, Form, Input, Modal } from "antd";
-import { FormType } from "@/types/interface";
+import React, { useContext, useEffect, useState } from "react";
+import { Button, DatePicker, Form, Input, Modal, Select } from "antd";
+import { FormType, VotingPlace } from "@/types/interface";
 import { ErrorContext } from "@/libs/createContext";
-import { PostFormData } from "@/libs/handlers";
+import { HandlerFormData } from "@/libs/handlers";
 
 export default function FormAddressComponent() {
   const { error, setError } = useContext(ErrorContext);
   const [form] = Form.useForm();
-
+  const [responseData, setResponseData] = useState<VotingPlace[]>([]);
+  useEffect(() => {
+    const pollingPlace = async () => {
+      try {
+        const url = "/vote";
+        const method = "GET";
+        const responseData = await HandlerFormData(url, method);
+        setResponseData(responseData.votingPlace);
+      } catch {
+        setError(true);
+      }
+    };
+    pollingPlace();
+  }, []);
+  console.log(responseData);
   const onFinish = (values: FormType) => {
     try {
       const url = "/address";
+      const method = "POST";
       console.log(values);
-      PostFormData(values, url);
+      HandlerFormData(url, method, values);
     } catch {
       setError(true);
+    } finally {
+      form.resetFields();
     }
   };
   const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo)
+    console.log("Failed:", errorInfo);
     setError(true);
   };
 
@@ -78,11 +95,17 @@ export default function FormAddressComponent() {
           <Input />
         </Form.Item>
         <Form.Item<FormType>
-          label="idvotingplace"
+          label="Lugar de votación"
           name="idvotingplace"
           rules={[{ required: true, message: "Digite la mesa de votación!" }]}
         >
-          <Input />
+          <Select>
+          {responseData
+              ? responseData.map((place:VotingPlace) => (
+                  <Select.Option key={place.id} value={place.id}>{place.votingplace}</Select.Option>
+                ))
+              : null}
+          </Select>
         </Form.Item>
         <Form.Item<FormType>
           label="Fecha de ingreso"

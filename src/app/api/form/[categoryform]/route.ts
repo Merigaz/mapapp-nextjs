@@ -2,7 +2,7 @@ import prisma from "@/libs/prisma";
 import { FormType } from "@/types/interface";
 import { authOptions } from "../../auth/[...nextauth]/options";
 import { getServerSession } from "next-auth";
-
+import { NextResponse } from "next/server";
 export async function POST(
   request: Request,
   { params }: { params: { categoryform: string } }
@@ -50,5 +50,27 @@ export async function POST(
         return new Response("404 not found", { status: 404 });
     }
   }
+  return new Response("unauthorized", { status: 401 });
+}
+
+export async function GET(
+  request: Request,
+  { params }: { params: { categoryform: string } }
+) {
+  const session = await getServerSession(authOptions);
+  const categoryform = params.categoryform;
+  if (session && session?.user.role === "admin") {
+    switch (categoryform) {
+      case "vote":
+        const votingPlace = await prisma.votingPlace.findMany();
+        return NextResponse.json({ votingPlace }, { status: 200 });
+      case "address":
+        const addressData = await prisma.address.findMany();
+        return NextResponse.json({ addressData }, { status: 200 });
+      default:
+        return new Response("404 not found", { status: 404 });
+    }
+  }
+
   return new Response("unauthorized", { status: 401 });
 }
