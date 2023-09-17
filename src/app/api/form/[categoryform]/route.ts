@@ -27,9 +27,7 @@ export async function POST(
         //context: doesnt matter if i use type number because ...
         //the form submit a string so prisma throw an error of type because is expecting an integer
         // I did this on purpose because setting type number in the form, is overengineer that simple form and i want to keep this readable
-        const id = parseInt(bodyaddress.id);
-        const phone = parseInt(bodyaddress.phone);
-        const table = parseInt(bodyaddress.table);
+     
         const pollingplace = await prisma.votingPlace.findUnique({
           where: { id: bodyaddress.idvotingplace },
         });
@@ -39,12 +37,12 @@ export async function POST(
             addresses: {
               create: {
                 name: bodyaddress.name,
-                id: id,
-                phone: phone,
+                id: parseInt(bodyaddress.id),
+                phone: parseInt(bodyaddress.phone),
                 addressname: bodyaddress.addressname,
                 neighborhood: bodyaddress.neighborhood,
                 date: bodyaddress.date,
-                table: table,
+                table: parseInt(bodyaddress.table),
                 votingplace: pollingplace.votingplace,
                 addressvotingplace: pollingplace.addressvotingplace,
               },
