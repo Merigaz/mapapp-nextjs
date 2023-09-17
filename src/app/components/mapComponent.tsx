@@ -3,6 +3,17 @@ import { ZoomContext } from "@/libs/createContext";
 import { GoogleMap } from "@react-google-maps/api";
 import { useContext } from "react";
 
+const address = "111 Wellington St, Ottawa, ON K1A 0A9, Canada";
+
+fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=[YOUR_API_KEY]`)
+.then((response) => {
+    return response.json();
+}).then(jsonData => {
+    console.log(jsonData.results[0].geometry.location); // {lat: 45.425152, lng: -75.6998028}
+})
+.catch(error => {
+    console.log(error);
+})
 export default function MapComponent() {
   const {zoom} = useContext(ZoomContext);
   const center = {
