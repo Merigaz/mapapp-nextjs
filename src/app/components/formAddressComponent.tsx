@@ -29,7 +29,7 @@ export default function FormAddressComponent() {
   }, []);
   console.log(responseData);
   const onFinish = (values: FormType) => {
-    const address = `${formValues.inputaddress1}${formValues.inputaddress2}${formValues.inputaddress3}`;
+    const address = `${formValues.inputaddress1}\u00A0${formValues.inputaddress2}\u00A0${formValues.inputaddress3}, Barranquilla, Colombia`;
     const payload = {
       ...values,
       addressname: address,
@@ -93,7 +93,10 @@ export default function FormAddressComponent() {
               placeholder="Carrera 68"
               style={{ width: "120px" }}
               onChange={(e: React.FormEvent<HTMLInputElement>) =>
-                setFormValues({ ...formValues, inputaddress1: e.currentTarget.value })
+                setFormValues({
+                  ...formValues,
+                  inputaddress1: e.currentTarget.value,
+                })
               }
             />
             <Input
@@ -101,15 +104,33 @@ export default function FormAddressComponent() {
               value="#"
               bordered={false}
               style={{ color: "#C3B984", width: "36px" }}
-            />{" "}
-            <Input placeholder="44" style={{ width: "58px" }} />{" "}
+            />
+            <Input
+              placeholder="44"
+              style={{ width: "58px" }}
+              onChange={(e: React.FormEvent<HTMLInputElement>) =>
+                setFormValues({
+                  ...formValues,
+                  inputaddress2: e.currentTarget.value,
+                })
+              }
+            />
             <Input
               disabled
               value="-"
               bordered={false}
               style={{ color: "#C3B984", width: "32px" }}
-            />{" "}
-            <Input placeholder="44" style={{ width: "58px" }} />
+            />
+            <Input
+              placeholder="44"
+              style={{ width: "58px" }}
+              onChange={(e: React.FormEvent<HTMLInputElement>) =>
+                setFormValues({
+                  ...formValues,
+                  inputaddress3: e.currentTarget.value,
+                })
+              }
+            />
           </div>
         </Form.Item>
         <Form.Item<FormType>
