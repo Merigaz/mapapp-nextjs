@@ -73,4 +73,6 @@ model Address {
   idvotingplace String
   votingplace String
   addressvotingplace String
+  lat Float
+  lng Float
 }

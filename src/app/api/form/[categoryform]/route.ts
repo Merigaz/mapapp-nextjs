@@ -24,14 +24,26 @@ export async function POST(
         return new Response(JSON.stringify(vote), { status: 200 });
       case "address":
         const bodyaddress: FormType = await request.json();
-        //context: doesnt matter if i use type number because ...
-        //the form submit a string so prisma throw an error of type because is expecting an integer
-        // I did this on purpose because setting type number in the form, is overengineer that simple form and i want to keep this readable
-     
+        const apiKey = process.env.NEXT_PUBLIC_API_MAP_KEY;
+        let latcoordinate = 0;
+        let lngcoordinate = 0;
+        const responseApi = await fetch(
+          `https://maps.googleapis.com/maps/api/geocode/json?address=${bodyaddress.addressname}, colombia"&key=${apiKey}`
+        );
+        if (responseApi.ok) {
+          const jsonData = await responseApi.json();
+          const { lat, lng } = jsonData.results[0].geometry.location;
+           latcoordinate = lat;
+           lngcoordinate = lng;
+        }
         const pollingplace = await prisma.votingPlace.findUnique({
           where: { id: bodyaddress.idvotingplace },
         });
+
         let datapollingplace: Prisma.VotingPlaceUpdateInput = {};
+        //context: doesnt matter if i use type number because ...
+        //the form submit a string so prisma throw an error of type because is expecting an integer
+        // I did this on purpose because setting type number in the form, is overengineer that simple form and i want to keep this readable
         if (pollingplace) {
           datapollingplace = {
             addresses: {
@@ -45,6 +57,8 @@ export async function POST(
                 table: parseInt(bodyaddress.table),
                 votingplace: pollingplace.votingplace,
                 addressvotingplace: pollingplace.addressvotingplace,
+                lat: latcoordinate,
+                lng: lngcoordinate,
               },
             },
           };

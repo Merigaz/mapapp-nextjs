@@ -39,9 +39,9 @@ export interface ErrorContextType {
   error: boolean;
   setError: React.Dispatch<React.SetStateAction<boolean>>;
 }
-export interface FormType  {
+export interface FormType {
   name: string;
-  id: string ;
+  id: string;
   phone: string;
   addressname: string;
   neighborhood: string;
@@ -50,13 +50,12 @@ export interface FormType  {
   idvotingplace: string;
   votingplace: string;
   addressvotingplace: string;
+  lat: number;
+  lng: number;
 }
 
 export interface VotingPlace {
-  
-    id: string,
-    votingplace: string,
-    addressvotingplace: string,
-  
-  
+  id: string;
+  votingplace: string;
+  addressvotingplace: string;
 }
