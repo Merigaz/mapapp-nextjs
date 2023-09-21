@@ -28,7 +28,7 @@ export async function POST(
         let latcoordinate = 0;
         let lngcoordinate = 0;
         const responseApi = await fetch(
-          `https://maps.googleapis.com/maps/api/geocode/json?address=${bodyaddress.addressname}, colombia"&key=${apiKey}`
+          `https://maps.googleapis.com/maps/api/geocode/json?address=${bodyaddress.addressname}"&key=${apiKey}`
         );
         if (responseApi.ok) {
           const jsonData = await responseApi.json();

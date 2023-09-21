@@ -27,22 +27,17 @@ export default function FormAddressComponent() {
     };
     pollingPlace();
   }, []);
-  console.log(responseData);
-
   const onFinish = (values: FormType) => {
-
     const address = `${formValues.inputaddress1}\u00A0${formValues.inputaddress2}\u00A0${formValues.inputaddress3}, Barranquilla, Colombia`;
     let payload = {
       ...values,
       addressname: address,
-    }
+    };
 
-
-    
     try {
       const url = "/address";
       const method = "POST";
-      HandlerFormData(url,method,payload)
+      HandlerFormData(url, method, payload);
       console.log(payload);
     } catch {
       setError(true);
