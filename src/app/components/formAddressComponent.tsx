@@ -4,6 +4,8 @@ import { Button, DatePicker, Form, Input, Modal, Select } from "antd";
 import { FormType, VotingPlace } from "@/types/interface";
 import { ErrorContext } from "@/libs/createContext";
 import { HandlerFormData } from "@/libs/handlers";
+import 'dayjs/locale/es';
+import locale from 'antd/es/date-picker/locale/es_ES'
 
 export default function FormAddressComponent() {
   const { error, setError } = useContext(ErrorContext);
@@ -167,7 +169,7 @@ export default function FormAddressComponent() {
           name="date"
           rules={[{ required: true, message: "Seleccione fecha!" }]}
         >
-          <DatePicker format="YYYY-MM-DD" />
+          <DatePicker format="YYYY-MM-DD" locale={locale} />
         </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit">

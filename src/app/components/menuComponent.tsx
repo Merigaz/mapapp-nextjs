@@ -50,14 +50,12 @@ export default function MenuComponent() {
       );
       const wb = XLSX.utils.book_new();
       const ws = XLSX.utils.json_to_sheet(dataToExport);
-      const actualDate = new Date();
-      const day = actualDate.getDate();
-      const month = actualDate.getMonth() + 1;
-      const hour = actualDate.getHours();
-      const minutes = actualDate.getMinutes();
-      const formattedDate = `${day < 10 ? "0" : ""}${day} ${
-        month < 10 ? "0" : ""
-      }${month} - ${hour} ${minutes}`;
+      const formattedDate = new Date().toLocaleString('en-US', {
+        day: '2-digit',
+        month: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+      }).replace(/\/|,|:|\s/g, '-');
       XLSX.utils.book_append_sheet(wb, ws, "Direcciones");
       XLSX.writeFile(wb, `Direcciones - ${formattedDate}.xlsx`);
     } catch (Error) {
