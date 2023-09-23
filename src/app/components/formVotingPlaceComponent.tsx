@@ -6,7 +6,7 @@ import { HandlerFormData } from "@/libs/handlers";
 import { ErrorContext } from "@/libs/createContext";
 
 export default function FormVotingPlaceComponent() {
-  const { error, setError } = useContext(ErrorContext);
+  const {setError } = useContext(ErrorContext);
   const [form] = Form.useForm();
 
   const onFinish = (values: FormType) => {

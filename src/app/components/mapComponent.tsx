@@ -1,5 +1,5 @@
 "use client";
-import { ZoomContext } from "@/libs/createContext";
+import { ErrorContext, ZoomContext } from "@/libs/createContext";
 import { HandlerFormData } from "@/libs/handlers";
 import { FormType } from "@/types/interface";
 import { GoogleMap, Marker } from "@react-google-maps/api";
@@ -7,6 +7,7 @@ import { useContext, useEffect, useState } from "react";
 
 export default function MapComponent() {
   const [responseData, setResponseData] = useState<FormType[]>([]);
+  const { setError } = useContext(ErrorContext);
   useEffect(() => {
     const pollingPlace = async () => {
       try {
@@ -14,7 +15,7 @@ export default function MapComponent() {
         const method = "GET";
         const responseData = await HandlerFormData(url, method);
         setResponseData(responseData.addressData);
-      } catch {}
+      } catch {setError(true);}
     };
     pollingPlace();
   }, []);

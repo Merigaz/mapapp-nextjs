@@ -4,11 +4,11 @@ import { Button, DatePicker, Form, Input, Modal, Select } from "antd";
 import { FormType, VotingPlace } from "@/types/interface";
 import { ErrorContext } from "@/libs/createContext";
 import { HandlerFormData } from "@/libs/handlers";
-import 'dayjs/locale/es';
-import locale from 'antd/es/date-picker/locale/es_ES'
+import "dayjs/locale/es";
+import locale from "antd/es/date-picker/locale/es_ES";
 
 export default function FormAddressComponent() {
-  const { error, setError } = useContext(ErrorContext);
+  const { setError } = useContext(ErrorContext);
   const [form] = Form.useForm();
   const [responseData, setResponseData] = useState<VotingPlace[]>([]);
   const [formValues, setFormValues] = useState({

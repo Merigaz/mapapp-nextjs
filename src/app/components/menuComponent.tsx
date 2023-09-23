@@ -1,6 +1,6 @@
 "use client";
 import * as XLSX from "xlsx";
-import { ZoomContext } from "@/libs/createContext";
+import { ErrorContext, ZoomContext } from "@/libs/createContext";
 import {
   CloudDownloadOutlined,
   ZoomInOutlined,
@@ -14,8 +14,10 @@ import { StyleMenu } from "@/libs/styles";
 import { useSession } from "next-auth/react";
 import { HandlerFormData } from "@/libs/handlers";
 import { FormType } from "@/types/interface";
+import ModalError from "./modalError";
 
 export default function MenuComponent() {
+  const { setError } = useContext(ErrorContext);
   const [key, setKey] = useState("map");
   const { setZoom } = useContext(ZoomContext);
   const { data: session } = useSession();
@@ -42,23 +44,26 @@ export default function MenuComponent() {
           Teléfono: phone,
           Dirección: addressname,
           Barrio: neighborhood,
-          'Mesa de votación': table,
-          'Lugar de votación': votingplace,
-          'Dirección lugar de votación': addressvotingplace,
+          "Mesa de votación": table,
+          "Lugar de votación": votingplace,
+          "Dirección lugar de votación": addressvotingplace,
           Fecha: date,
         })
       );
       const wb = XLSX.utils.book_new();
       const ws = XLSX.utils.json_to_sheet(dataToExport);
-      const formattedDate = new Date().toLocaleString('en-US', {
-        day: '2-digit',
-        month: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit',
-      }).replace(/\/|,|:|\s/g, '-');
+      const formattedDate = new Date()
+        .toLocaleString("en-US", {
+          day: "2-digit",
+          month: "2-digit",
+          hour: "2-digit",
+          minute: "2-digit",
+        })
+        .replace(/\/|,|:|\s/g, "-");
       XLSX.utils.book_append_sheet(wb, ws, "Direcciones");
       XLSX.writeFile(wb, `Direcciones - ${formattedDate}.xlsx`);
     } catch (Error) {
+      setError(true);
       console.error("Error downloading data:", Error);
     }
   };
@@ -111,6 +116,7 @@ export default function MenuComponent() {
 
   return (
     <ConfigProvider theme={theme}>
+      <ModalError />
       <Menu
         selectedKeys={[key]}
         mode="horizontal"
