@@ -1,41 +1,50 @@
-import React from "react";
-import ReactDOM from "react-dom";
+"use client";
+import React, { useContext, useEffect, useState } from "react";
 import { Pie } from "@ant-design/plots";
+import { NeighborhoodCount } from "@/types/interface";
+import { HandlerFormData } from "@/libs/handlers";
+import { ErrorContext } from "@/libs/createContext";
 
 export default function DemoPie() {
-  const data = [
-    {
-      type: "分类一",
-      value: 27,
-    },
-    {
-      type: "分类二",
-      value: 25,
-    },
-    {
-      type: "分类三",
-      value: 18,
-    },
-    {
-      type: "分类四",
-      value: 15,
-    },
-    {
-      type: "分类五",
-      value: 10,
-    },
-    {
-      type: "其他",
-      value: 5,
-    },
-  ];
+  const { setError } = useContext(ErrorContext);
+  const [data, setData] = useState<{ type: string; value: number }[]>([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const url = "/address";
+        const method = "GET";
+        const responseData = await HandlerFormData(url, method);
+
+        const neighborhoodCount: NeighborhoodCount = {};
+        responseData.addressData.forEach((address: NeighborhoodCount) => {
+          const neighborhood = address.neighborhood;
+          if (neighborhoodCount[neighborhood]) {
+            neighborhoodCount[neighborhood]++;
+          } else {
+            neighborhoodCount[neighborhood] = 1;
+          }
+        });
+        const formattedData = Object.keys(neighborhoodCount).map(
+          (neighborhood) => ({
+            type: neighborhood,
+            value: neighborhoodCount[neighborhood],
+          })
+        );
+
+        setData(formattedData);
+      } catch (Error) {
+        setError(true);
+      }
+    };
+
+    fetchData();
+  }, []);
   const config = {
     appendPadding: 10,
     data,
     angleField: "value",
     colorField: "type",
     radius: 1,
-    // 设置圆弧起始角度
     startAngle: Math.PI,
     endAngle: Math.PI * 1.5,
     label: {
@@ -56,8 +65,8 @@ export default function DemoPie() {
     },
   };
   return (
-    <div className="m-auto w-full">
-      <Pie {...config} />;
+    <div className="m-auto w-full bg-white border-solid">
+      {data ? <Pie {...config} /> : null};
     </div>
   );
 }
