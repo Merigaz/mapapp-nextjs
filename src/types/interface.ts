@@ -39,6 +39,10 @@ export interface ErrorContextType {
   error: boolean;
   setError: React.Dispatch<React.SetStateAction<boolean>>;
 }
+export interface AddressDataContextType {
+  addressData: FormType[];
+  setAddressData: React.Dispatch<React.SetStateAction<FormType[]>>;
+}
 export interface FormType {
   name: string;
   id: string;

@@ -66,7 +66,7 @@ export default function DemoPie() {
   };
   return (
     <div className="m-auto w-full bg-white border-solid">
-      {data ? <Pie {...config} /> : null};
+      {data ? <Pie {...config} /> : null}
     </div>
   );
 }

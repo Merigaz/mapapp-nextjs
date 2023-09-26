@@ -2,13 +2,14 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Button, DatePicker, Form, Input, Modal, Select } from "antd";
 import { FormType, VotingPlace } from "@/types/interface";
-import { ErrorContext } from "@/libs/createContext";
+import { AddressDataContext, ErrorContext } from "@/libs/createContext";
 import { HandlerFormData } from "@/libs/handlers";
 import "dayjs/locale/es";
 import locale from "antd/es/date-picker/locale/es_ES";
 
 export default function FormAddressComponent() {
   const { setError } = useContext(ErrorContext);
+  const { addressData, setAddressData } = useContext(AddressDataContext);
   const [form] = Form.useForm();
   const [responseData, setResponseData] = useState<VotingPlace[]>([]);
   const [formValues, setFormValues] = useState({
@@ -26,9 +27,21 @@ export default function FormAddressComponent() {
       } catch {
         setError(true);
       }
+      try {
+        const url = "/address";
+        const method = "GET";
+        const addressRequest = await HandlerFormData(url, method);
+        setAddressData(addressRequest.addressData);
+        console.log(addressData, "caca");
+      } catch {
+        setError(true);
+      }
     };
     pollingPlace();
   }, []);
+  useEffect(() => {
+    console.log(addressData, "caca");
+  }, [addressData]);
   const onFinish = (values: FormType) => {
     const address = `${formValues.inputaddress1}\u00A0${formValues.inputaddress2}\u00A0${formValues.inputaddress3}, Barranquilla, Colombia`;
     let payload = {
@@ -51,7 +64,6 @@ export default function FormAddressComponent() {
     console.log("Failed:", errorInfo);
     setError(true);
   };
-
   return (
     <div className="container-form">
       <Form
