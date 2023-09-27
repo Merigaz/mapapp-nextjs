@@ -1,5 +1,4 @@
-import type { FormProps, TabsProps } from "antd";
-import { NextApiRequest } from "next";
+import type { TabsProps } from "antd";
 
 export interface ButtonsProps {
   typeButton?: "link" | "text" | "default" | "primary" | "dashed" | undefined;
@@ -49,7 +48,7 @@ export interface FormType {
   phone: string;
   addressname: string;
   neighborhood: string;
-  date: Date;
+  date: Date | null;
   table: string;
   idvotingplace: string;
   votingplace: string;

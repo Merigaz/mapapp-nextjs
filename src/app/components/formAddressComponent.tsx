@@ -6,6 +6,7 @@ import { AddressDataContext, ErrorContext } from "@/libs/createContext";
 import { HandlerFormData } from "@/libs/handlers";
 import "dayjs/locale/es";
 import locale from "antd/es/date-picker/locale/es_ES";
+import dayjs from "dayjs";
 
 export default function FormAddressComponent() {
   const { setError } = useContext(ErrorContext);
@@ -17,6 +18,7 @@ export default function FormAddressComponent() {
     inputaddress2: "",
     inputaddress3: "",
   });
+  
   useEffect(() => {
     const pollingPlace = async () => {
       try {
@@ -44,9 +46,13 @@ export default function FormAddressComponent() {
   }, [addressData]);
   const onFinish = (values: FormType) => {
     const address = `${formValues.inputaddress1}\u00A0${formValues.inputaddress2}\u00A0${formValues.inputaddress3}, Barranquilla, Colombia`;
+    const formattedDate= dayjs(values.date).format("YYYY/MM/DD")
+    const date = new Date(formattedDate)
+    
     let payload = {
       ...values,
       addressname: address,
+      date: date,
     };
 
     try {
@@ -181,7 +187,10 @@ export default function FormAddressComponent() {
           name="date"
           rules={[{ required: true, message: "Seleccione fecha!" }]}
         >
-          <DatePicker format="YYYY-MM-DD" locale={locale} />
+          <DatePicker
+            format="YYYY/MM/DD"
+            locale={locale}
+          />
         </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit">

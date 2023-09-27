@@ -7,6 +7,7 @@ import {
   ZoomContextType,
 } from "@/types/interface";
 import { createContext, useState } from "react";
+
 export const AddressDataContext = createContext<AddressDataContextType>({
   addressData: [],
   setAddressData: () => {},
