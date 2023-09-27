@@ -48,7 +48,7 @@ export interface FormType {
   phone: string;
   addressname: string;
   neighborhood: string;
-  date: Date | null;
+  date: Date;
   table: string;
   idvotingplace: string;
   votingplace: string;
