@@ -8,7 +8,7 @@ export default function sidebarComponent() {
   return (
     <ConfigProvider theme={theme}>
       <aside className="sidebar">
-        <DemoPie />
+        <DemoPie/>
         <LogoutButton />
       </aside>
     </ConfigProvider>

@@ -29,22 +29,11 @@ export default function FormAddressComponent() {
       } catch {
         setError(true);
       }
-      try {
-        const url = "/address";
-        const method = "GET";
-        const addressRequest = await HandlerFormData(url, method);
-        setAddressData(addressRequest.addressData);
-        console.log(addressData, "caca");
-      } catch {
-        setError(true);
-      }
+      
     };
     pollingPlace();
   }, []);
-  useEffect(() => {
-    console.log(addressData, "caca");
-  }, [addressData]);
-  const onFinish = (values: FormType) => {
+  const onFinish = async (values: FormType) => {
     const address = `${formValues.inputaddress1}\u00A0${formValues.inputaddress2}\u00A0${formValues.inputaddress3}, Barranquilla, Colombia`;
     const formattedDate= dayjs(values.date).format("YYYY/MM/DD")
     const date = new Date(formattedDate)
@@ -64,6 +53,15 @@ export default function FormAddressComponent() {
       setError(true);
     } finally {
       form.resetFields();
+    }
+    try {
+      const url = "/address";
+      const method = "GET";
+      const addressRequest = await HandlerFormData(url, method);
+      setAddressData(addressRequest.addressData);
+      console.log(addressData, "cacaform");
+    } catch {
+      setError(true);
     }
   };
   const onFinishFailed = (errorInfo: any) => {

@@ -7,7 +7,6 @@ import MenuComponent from "./components/menuComponent";
 import AntdThemeProvider from "@/libs/antdThemeProvider";
 import ContextProvider from "@/libs/createContext";
 
-
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -25,13 +24,13 @@ export default function RootLayout({
       <AntdThemeProvider>
         <SessionWrapper>
           <body className={inter.className}>
-            <SideBar />
-            <main>
-              <ContextProvider>
+            <ContextProvider>
+              <SideBar />
+              <main>
                 {children}
                 <MenuComponent />
-              </ContextProvider>
-            </main>
+              </main>
+            </ContextProvider>
           </body>
         </SessionWrapper>
       </AntdThemeProvider>

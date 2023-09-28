@@ -1,24 +1,11 @@
 "use client";
-import { ErrorContext, ZoomContext } from "@/libs/createContext";
-import { HandlerFormData } from "@/libs/handlers";
+import {  AddressDataContext, ZoomContext } from "@/libs/createContext";
 import { FormType } from "@/types/interface";
 import { GoogleMap, Marker } from "@react-google-maps/api";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 
 export default function MapComponent() {
-  const [responseData, setResponseData] = useState<FormType[]>([]);
-  const { setError } = useContext(ErrorContext);
-  useEffect(() => {
-    const pollingPlace = async () => {
-      try {
-        const url = "/address";
-        const method = "GET";
-        const responseData = await HandlerFormData(url, method);
-        setResponseData(responseData.addressData);
-      } catch {setError(true);}
-    };
-    pollingPlace();
-  }, []);
+  const { addressData } = useContext(AddressDataContext);
   const { zoom } = useContext(ZoomContext);
   const center = {
     lat: 10.9632,
@@ -44,8 +31,8 @@ export default function MapComponent() {
         },
       }}
     >
-      {responseData
-        ? responseData.map((marker: FormType) => (
+      {addressData
+        ? addressData.map((marker: FormType) => (
             <Marker
               key={marker.id}
               position={{ lat: marker.lat, lng: marker.lng }}

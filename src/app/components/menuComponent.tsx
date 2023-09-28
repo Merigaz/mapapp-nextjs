@@ -1,6 +1,6 @@
 "use client";
 import * as XLSX from "xlsx";
-import { ErrorContext, ZoomContext } from "@/libs/createContext";
+import { AddressDataContext, ZoomContext } from "@/libs/createContext";
 import {
   CloudDownloadOutlined,
   ZoomInOutlined,
@@ -12,60 +12,51 @@ import { useContext, useState } from "react";
 import theme from "../theme/themeConfig";
 import { StyleMenu } from "@/libs/styles";
 import { useSession } from "next-auth/react";
-import { HandlerFormData } from "@/libs/handlers";
 import { FormType } from "@/types/interface";
 import ModalError from "./modalError";
 
 export default function MenuComponent() {
-  const { setError } = useContext(ErrorContext);
   const [key, setKey] = useState("map");
   const { setZoom } = useContext(ZoomContext);
   const { data: session } = useSession();
+  const { addressData } = useContext(AddressDataContext);
 
-  const handleDownload = async () => {
-    try {
-      const url = "/address";
-      const method = "GET";
-      const jsondata = await HandlerFormData(url, method);
-      const dataToExport: FormType[] = jsondata.addressData.map(
-        ({
-          name,
-          id,
-          phone,
-          addressname,
-          neighborhood,
-          date,
-          table,
-          votingplace,
-          addressvotingplace,
-        }: FormType) => ({
-          Nombre: name,
-          Cédula: id,
-          Teléfono: phone,
-          Dirección: addressname,
-          Barrio: neighborhood,
-          "Mesa de votación": table,
-          "Lugar de votación": votingplace,
-          "Dirección lugar de votación": addressvotingplace,
-          Fecha: date,
-        })
-      );
-      const wb = XLSX.utils.book_new();
-      const ws = XLSX.utils.json_to_sheet(dataToExport);
-      const formattedDate = new Date()
-        .toLocaleString("en-US", {
-          day: "2-digit",
-          month: "2-digit",
-          hour: "2-digit",
-          minute: "2-digit",
-        })
-        .replace(/\/|,|:|\s/g, "-");
-      XLSX.utils.book_append_sheet(wb, ws, "Direcciones");
-      XLSX.writeFile(wb, `Direcciones - ${formattedDate}.xlsx`);
-    } catch (Error) {
-      setError(true);
-      console.error("Error downloading data:", Error);
-    }
+  const handleDownload = () => {
+    const dataToExport = addressData.map(
+      ({
+        name,
+        id,
+        phone,
+        addressname,
+        neighborhood,
+        date,
+        table,
+        votingplace,
+        addressvotingplace,
+      }: FormType) => ({
+        Nombre: name,
+        Cédula: id,
+        Teléfono: phone,
+        Dirección: addressname,
+        Barrio: neighborhood,
+        "Mesa de votación": table,
+        "Lugar de votación": votingplace,
+        "Dirección lugar de votación": addressvotingplace,
+        Fecha: date,
+      })
+    );
+    const wb = XLSX.utils.book_new();
+    const ws = XLSX.utils.json_to_sheet(dataToExport);
+    const formattedDate = new Date()
+      .toLocaleString("en-US", {
+        day: "2-digit",
+        month: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+      })
+      .replace(/\/|,|:|\s/g, "-");
+    XLSX.utils.book_append_sheet(wb, ws, "Direcciones");
+    XLSX.writeFile(wb, `Direcciones - ${formattedDate}.xlsx`);
   };
   const items: MenuProps["items"] = [
     {

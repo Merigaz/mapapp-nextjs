@@ -1,4 +1,3 @@
-
 import React, { useContext } from "react";
 import { Button, Form, Input } from "antd";
 import { FormType } from "@/types/interface";
@@ -6,9 +5,9 @@ import { HandlerFormData } from "@/libs/handlers";
 import { ErrorContext } from "@/libs/createContext";
 
 export default function FormVotingPlaceComponent() {
-  const {setError } = useContext(ErrorContext);
+  const { setError } = useContext(ErrorContext);
   const [form] = Form.useForm();
-
+  
   const onFinish = (values: FormType) => {
     try {
       const url = "/vote";

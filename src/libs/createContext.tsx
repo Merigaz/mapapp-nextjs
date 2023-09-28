@@ -6,28 +6,13 @@ import {
   PropChildren,
   ZoomContextType,
 } from "@/types/interface";
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
+import { HandlerFormData } from "./handlers";
 
 export const AddressDataContext = createContext<AddressDataContextType>({
   addressData: [],
   setAddressData: () => {},
 });
-const initialAddressData: FormType[] = [
-  {
-    name: "",
-    id: "",
-    phone: "",
-    addressname: "",
-    neighborhood: "",
-    date: new Date(),
-    table: "",
-    idvotingplace: "",
-    votingplace: "",
-    addressvotingplace: "",
-    lat: 0,
-    lng: 0,
-  },
-];
 export const ZoomContext = createContext<ZoomContextType>({
   zoom: 12,
   setZoom: () => {},
@@ -40,7 +25,24 @@ const ContextProvider = ({ children }: PropChildren) => {
   const [zoom, setZoom] = useState(12);
   const [error, setError] = useState(false);
   const [addressData, setAddressData] =
-    useState<FormType[]>(initialAddressData);
+    useState<FormType[]>([]);
+    useEffect(() => {
+      async function fetchAddressData() {
+        try {
+          const url = "/address";
+          const method = "GET";
+          const addressRequest = await HandlerFormData(url, method);
+          setAddressData(addressRequest.addressData);
+          console.log(addressRequest.addressData, "cacacontext");
+        } catch {
+          setError(true);
+        }
+      }
+  
+     
+      fetchAddressData();
+    }, []); 
+  
   return (
     <ZoomContext.Provider value={{ zoom, setZoom }}>
       <ErrorContext.Provider value={{ error, setError }}>

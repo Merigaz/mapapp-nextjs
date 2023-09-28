@@ -1,44 +1,31 @@
 "use client";
 import React, { useContext, useEffect, useState } from "react";
 import { Pie } from "@ant-design/plots";
-import { NeighborhoodCount } from "@/types/interface";
-import { HandlerFormData } from "@/libs/handlers";
-import { ErrorContext } from "@/libs/createContext";
+import { FormType, NeighborhoodCount } from "@/types/interface";
+import { AddressDataContext } from "@/libs/createContext";
 
 export default function DemoPie() {
-  const { setError } = useContext(ErrorContext);
   const [data, setData] = useState<{ type: string; value: number }[]>([]);
+  const { addressData } = useContext(AddressDataContext);
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const url = "/address";
-        const method = "GET";
-        const responseData = await HandlerFormData(url, method);
-
-        const neighborhoodCount: NeighborhoodCount = {};
-        responseData.addressData.forEach((address: NeighborhoodCount) => {
-          const neighborhood = address.neighborhood;
-          if (neighborhoodCount[neighborhood]) {
-            neighborhoodCount[neighborhood]++;
-          } else {
-            neighborhoodCount[neighborhood] = 1;
-          }
-        });
-        const formattedData = Object.keys(neighborhoodCount).map(
-          (neighborhood) => ({
-            type: neighborhood,
-            value: neighborhoodCount[neighborhood],
-          })
-        );
-
-        setData(formattedData);
-      } catch (Error) {
-        setError(true);
+    const neighborhoodCount: NeighborhoodCount = {};
+    addressData.forEach((address: FormType) => {
+      const neighborhood = address.neighborhood;
+      if (neighborhoodCount[neighborhood]) {
+        neighborhoodCount[neighborhood]++;
+      } else {
+        neighborhoodCount[neighborhood] = 1;
       }
-    };
+    });
+    const formattedData = Object.keys(neighborhoodCount).map(
+      (neighborhood) => ({
+        type: neighborhood,
+        value: neighborhoodCount[neighborhood],
+      })
+    );
 
-    fetchData();
-  }, []);
+    setData(formattedData);
+  }, [addressData]);
   const config = {
     appendPadding: 10,
     data,
