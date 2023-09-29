@@ -39,7 +39,6 @@ export async function POST(
         const pollingplace = await prisma.votingPlace.findUnique({
           where: { id: bodyaddress.idvotingplace },
         });
-
         let datapollingplace: Prisma.VotingPlaceUpdateInput = {};
         //context: doesnt matter if i use type number because ...
         //the form submit a string so prisma throw an error of type because is expecting an integer
