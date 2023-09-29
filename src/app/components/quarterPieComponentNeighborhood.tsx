@@ -1,12 +1,13 @@
 "use client";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import { Pie } from "@ant-design/plots";
 import { FormType, NeighborhoodCount } from "@/types/interface";
 import { AddressDataContext } from "@/libs/createContext";
 
-export default function DemoPie() {
+export default function QuarterPieComponentNeighborhood() {
   const [data, setData] = useState<{ type: string; value: number }[]>([]);
   const { addressData } = useContext(AddressDataContext);
+
   useEffect(() => {
     const neighborhoodCount: NeighborhoodCount = {};
     addressData.forEach((address: FormType) => {
@@ -26,6 +27,7 @@ export default function DemoPie() {
 
     setData(formattedData);
   }, [addressData]);
+
   const config = {
     appendPadding: 10,
     data,
@@ -51,9 +53,10 @@ export default function DemoPie() {
       lineWidth: 0,
     },
   };
+
   return (
     <div className="m-auto w-full bg-white border-solid">
-      {data ? <Pie {...config} /> : null}
+      <Pie {...config} />
     </div>
   );
 }

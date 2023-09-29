@@ -10,7 +10,7 @@ import dayjs from "dayjs";
 
 export default function FormAddressComponent() {
   const { setError } = useContext(ErrorContext);
-  const { addressData, setAddressData } = useContext(AddressDataContext);
+  const { setAddressData } = useContext(AddressDataContext);
   const [form] = Form.useForm();
   const [responseData, setResponseData] = useState<VotingPlace[]>([]);
   const [formValues, setFormValues] = useState({
@@ -29,7 +29,6 @@ export default function FormAddressComponent() {
       } catch {
         setError(true);
       }
-      
     };
     pollingPlace();
   }, []);
@@ -59,7 +58,6 @@ export default function FormAddressComponent() {
       const method = "GET";
       const addressRequest = await HandlerFormData(url, method);
       setAddressData(addressRequest.addressData);
-      console.log(addressData, "cacaform");
     } catch {
       setError(true);
     }

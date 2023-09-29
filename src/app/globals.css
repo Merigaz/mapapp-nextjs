@@ -13,7 +13,7 @@
     @apply flex justify-center align-middle m-auto;
   }
   .sidebar {
-    @apply border-solid border-2 border-sky-500 min-h-screen w-60 flex flex-col justify-center items-center;
+    @apply border-solid border-2 border-sky-500 min-h-screen w-80 flex flex-col justify-center items-center;
   }
   .divlogin {
     @apply flex flex-row justify-center align-middle gap-1;

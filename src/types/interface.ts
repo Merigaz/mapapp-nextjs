@@ -16,6 +16,7 @@ export interface TabProps {
   items: TabsProps["items"];
   onChange: (key: string) => void;
   styleTab?: {};
+  addressData?: FormType;
 }
 
 export interface PropChildren {
