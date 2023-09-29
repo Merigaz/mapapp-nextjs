@@ -1,27 +1,27 @@
 "use client";
 import React, { useContext, useEffect, useState } from "react";
 import { Pie } from "@ant-design/plots";
-import { FormType, NeighborhoodCount } from "@/types/interface";
+import { FormType, VotingPlaceCount } from "@/types/interface";
 import { AddressDataContext } from "@/libs/createContext";
 
-export default function QuarterPieComponentNeighborhood() {
+export default function QuarterPieComponentVotingplace() {
   const [data, setData] = useState<{ type: string; value: number }[]>([]);
   const { addressData } = useContext(AddressDataContext);
 
   useEffect(() => {
-    const neighborhoodCount: NeighborhoodCount = {};
+    const votingplaceCount: VotingPlaceCount = {};
     addressData.forEach((address: FormType) => {
-      const neighborhood = address.neighborhood;
-      if (neighborhoodCount[neighborhood]) {
-        neighborhoodCount[neighborhood]++;
+      const votingplace = address.votingplace;
+      if (votingplaceCount[votingplace]) {
+        votingplaceCount[votingplace]++;
       } else {
-        neighborhoodCount[neighborhood] = 1;
+        votingplaceCount[votingplace] = 1;
       }
     });
-    const formattedData = Object.keys(neighborhoodCount).map(
-      (neighborhood) => ({
-        type: neighborhood,
-        value: neighborhoodCount[neighborhood],
+    const formattedData = Object.keys(votingplaceCount).map(
+      (votingplace) => ({
+        type: votingplace,
+        value: votingplaceCount[votingplace],
       })
     );
 

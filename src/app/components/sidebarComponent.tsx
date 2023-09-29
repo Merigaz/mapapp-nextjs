@@ -5,6 +5,7 @@ import theme from "../theme/themeConfig";
 import LogoutButton from "./logoutComponent";
 import TabsCustom from "./tabsCustom";
 import { TabProps } from "@/types/interface";
+import QuarterPieComponentVotingplace from "./quarterPieComponentVotingplace";
 
 export default function sidebarComponent() {
   const TabsFormsProps: TabProps = {
@@ -20,7 +21,7 @@ export default function sidebarComponent() {
       {
         key: "2",
         label: "Lugares de votación",
-        children: "",
+        children: <QuarterPieComponentVotingplace/>,
       },
     ],
     keyTabs: "1",
