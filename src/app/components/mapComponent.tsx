@@ -1,12 +1,34 @@
 "use client";
-import {  AddressDataContext, ZoomContext } from "@/libs/createContext";
+import { AddressDataContext, ZoomContext } from "@/libs/createContext";
 import { FormType } from "@/types/interface";
 import { GoogleMap, Marker } from "@react-google-maps/api";
-import { useContext } from "react";
+import { Card, Checkbox, Divider } from "antd";
+import { useContext, useState } from "react";
+import type { CheckboxChangeEvent } from "antd/es/checkbox";
+import type { CheckboxValueType } from "antd/es/checkbox/Group";
 
 export default function MapComponent() {
   const { addressData } = useContext(AddressDataContext);
+  const plainOptions = Array.from(
+    new Set(addressData.map((data) => data.neighborhood))
+  );
+  console.log(plainOptions);
   const { zoom } = useContext(ZoomContext);
+  const [checkedList, setCheckedList] =
+    useState<CheckboxValueType[]>(plainOptions);
+
+  const checkAll = plainOptions.length === checkedList.length;
+  const indeterminate =
+    checkedList.length > 0 && checkedList.length < plainOptions.length;
+  const CheckboxGroup = Checkbox.Group;
+
+  const onChange = (list: CheckboxValueType[]) => {
+    setCheckedList(list);
+  };
+
+  const onCheckAllChange = (e: CheckboxChangeEvent) => {
+    setCheckedList(e.target.checked ? plainOptions : []);
+  };
   const center = {
     lat: 10.9632,
     lng: -74.7964,
@@ -17,6 +39,7 @@ export default function MapComponent() {
     east: -74.725747,
     west: -74.886714,
   };
+  console.log (checkedList)
   return (
     <GoogleMap
       mapContainerClassName="mapclassname"
@@ -31,6 +54,23 @@ export default function MapComponent() {
         },
       }}
     >
+      <Card>
+        {" "}
+        <Checkbox
+          indeterminate={indeterminate}
+          onChange={onCheckAllChange}
+          checked={checkAll}
+        >
+          Check all
+        </Checkbox>
+        <Divider></Divider>
+        <CheckboxGroup
+          options={plainOptions}
+          value={checkedList}
+          onChange={onChange}
+        />{" "}
+      </Card>
+
       {addressData
         ? addressData.map((marker: FormType) => (
             <Marker
