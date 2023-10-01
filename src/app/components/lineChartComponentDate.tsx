@@ -1,38 +1,31 @@
 import { AddressDataContext } from "@/libs/createContext";
+import { DateCount } from "@/types/interface";
 import { Line } from "@ant-design/plots";
 import { useContext, useEffect, useState } from "react";
 
 export default function LineChartComponentDate() {
   const { addressData } = useContext(AddressDataContext);
-  const [data, setData] = useState<{ Date: Date; Scales: number }[]>([]);
+  const [data, setData] = useState<{ Date: string; Scales: number }[]>([]);
+
   useEffect(() => {
-    // Agrupa las fechas y cuenta sus ocurrencias
-    const dateCounts = addressData.reduce((counts, item) => {
+    const dateCounts: DateCount = {};
+    addressData.forEach((item) => {
       const date = new Date(item.date);
-      const yearMonth = `${date.getFullYear()}-${(date.getMonth() + 1)
+      const yearMonthDay = `${date.getFullYear()}-${(date.getMonth() + 1)
         .toString()
-        .padStart(2, "0")}`;
+        .padStart(2, "0")}-${date.getDate().toString().padStart(2, "0")}`;
 
-      if (counts[yearMonth]) {
-        counts[yearMonth]++;
+      if (dateCounts[yearMonthDay]) {
+        dateCounts[yearMonthDay]++;
       } else {
-        counts[yearMonth] = 1;
+        dateCounts[yearMonthDay] = 1;
       }
+    });
 
-      return counts;
-    }, {});
-
-    // Convierte los datos agrupados en el formato deseado
-    const formattedData = Object.keys(dateCounts).map((yearMonth) => {
-        const [year, month] = yearMonth.split('-');
-        const date = new Date(year, month - 1); // Restamos 1 al mes ya que en JavaScript los meses van de 0 a 11
-        const formattedDate = `${date.getDate().toString().padStart(2, "0")}-${(date.getMonth() + 1).toString().padStart(2, "0")}-${year}`;
-        
-        return {
-          Date: formattedDate,
-          Scales: dateCounts[yearMonth],
-        };
-      });
+    const formattedData = Object.keys(dateCounts).map((yearMonthDay) => ({
+      Date: yearMonthDay,
+      Scales: dateCounts[yearMonthDay],
+    }));
 
     setData(formattedData);
   }, [addressData]);
@@ -43,7 +36,7 @@ export default function LineChartComponentDate() {
     xField: "Date",
     yField: "Scales",
     xAxis: {
-      // type: 'timeCat',
+      type: "timeCat", 
       tickCount: 5,
     },
   };

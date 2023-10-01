@@ -70,3 +70,6 @@ export interface NeighborhoodCount {
 export interface VotingPlaceCount {
   [votingplace: string]: number;
 }
+export interface DateCount {
+  [key: string]: number;
+}
