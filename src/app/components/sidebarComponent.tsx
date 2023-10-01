@@ -6,6 +6,7 @@ import LogoutButton from "./logoutComponent";
 import TabsCustom from "./tabsCustom";
 import { TabProps } from "@/types/interface";
 import QuarterPieComponentVotingplace from "./quarterPieComponentVotingplace";
+import LineChartComponentDate from "./lineChartComponentDate";
 
 export default function sidebarComponent() {
   const TabsFormsProps: TabProps = {
@@ -32,6 +33,7 @@ export default function sidebarComponent() {
       <aside className="sidebar">
         <div className="div-quarterpie-container">
         <TabsCustom {...TabsFormsProps} />
+        <LineChartComponentDate/>
         </div>
         <LogoutButton />
       </aside>
