@@ -22,19 +22,17 @@ export default function sidebarComponent() {
       {
         key: "2",
         label: "Lugares de votación",
-        children: <QuarterPieComponentVotingplace/>,
+        children: <QuarterPieComponentVotingplace />,
       },
     ],
     keyTabs: "1",
-    
   };
+  
   return (
     <ConfigProvider theme={theme}>
       <aside className="sidebar">
-        <div className="div-quarterpie-container">
         <TabsCustom {...TabsFormsProps} />
-        <LineChartComponentDate/>
-        </div>
+        <LineChartComponentDate />
         <LogoutButton />
       </aside>
     </ConfigProvider>

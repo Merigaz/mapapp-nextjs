@@ -32,14 +32,20 @@ export default function LineChartComponentDate() {
 
   console.log(data, "caca line");
   const config = {
+    
     data,
+    padding: 20,
     xField: "Date",
     yField: "Scales",
     xAxis: {
-      type: "timeCat", 
+      type: "timeCat",
       tickCount: 5,
     },
   };
 
-  return <Line {...config} />;
+  return (
+    <div className=" h-40 w-90 bg-white border-solid">
+      <Line {...config} />
+    </div>
+  );
 }

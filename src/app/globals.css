@@ -21,10 +21,17 @@
   .mapclassname {
     @apply w-full h-full;
   }
+  .div-charts-container {
+    @apply flex flex-col gap-2
+  }
+  .charts {
+    @apply m-auto h-40 w-full bg-white border-solid
+  }
 }
 
 @layer components {
   .container-form {
     @apply border-2 border-[#C3B984] self-center p-10 backdrop-blur-lg rounded-lg
+
   }
 }

@@ -55,7 +55,7 @@ export default function QuarterPieComponentNeighborhood() {
   };
 
   return (
-    <div className="m-auto w-full bg-white border-solid">
+    <div className="charts">
       <Pie {...config} />
     </div>
   );
