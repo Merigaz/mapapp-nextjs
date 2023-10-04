@@ -12,7 +12,6 @@ export default function MapComponent() {
   const plainOptions = Array.from(
     new Set(addressData.map((data) => data.neighborhood))
   );
-  console.log(plainOptions);
   const { zoom } = useContext(ZoomContext);
   const [checkedList, setCheckedList] =
     useState<CheckboxValueType[]>(plainOptions);
@@ -39,39 +38,46 @@ export default function MapComponent() {
     east: -74.725747,
     west: -74.886714,
   };
-  console.log (checkedList)
+  console.log(checkedList, "caca checkedlist");
+
+  const filteredMarkers = addressData.filter((marker) => {
+    return checkedList.includes(marker.neighborhood);
+  });
+  console.log(filteredMarkers, "Caca filtered markers");
+
   return (
     <GoogleMap
       mapContainerClassName="mapclassname"
       center={center}
       zoom={zoom}
       options={{
-        streetViewControl: true,
-        mapTypeControl: true,
-        disableDefaultUI: false,
+        streetViewControl: false,
+        mapTypeControl: false,
+        disableDefaultUI: true,
         restriction: {
           latLngBounds: bounds,
         },
       }}
     >
-      <Card>
-        {" "}
-        <Checkbox
-          indeterminate={indeterminate}
-          onChange={onCheckAllChange}
-          checked={checkAll}
-        >
-          Check all
-        </Checkbox>
-        <Divider></Divider>
-        <CheckboxGroup
-          options={plainOptions}
-          value={checkedList}
-          onChange={onChange}
-        />{" "}
-      </Card>
+      <div className="div-checkbox">
+        <Card>
+          <Checkbox
+            indeterminate={indeterminate}
+            onChange={onCheckAllChange}
+            checked={checkAll}
+          >
+            Check all
+          </Checkbox>
+          <Divider></Divider>
+          <CheckboxGroup
+            options={plainOptions}
+            value={checkedList}
+            onChange={onChange}
+          />
+        </Card>
+      </div>
 
-      {addressData
+      {filteredMarkers.length == 0
         ? addressData.map((marker: FormType) => (
             <Marker
               key={marker.id}
@@ -79,7 +85,13 @@ export default function MapComponent() {
               title={marker.addressname}
             />
           ))
-        : null}
+        : filteredMarkers.map((marker: FormType) => (
+            <Marker
+              key={marker.id}
+              position={{ lat: marker.lat, lng: marker.lng }}
+              title={marker.addressname}
+            />
+          ))}
     </GoogleMap>
   );
 }

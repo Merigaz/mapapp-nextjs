@@ -38,13 +38,12 @@ export default function LineChartComponentDate() {
     xField: "Date",
     yField: "Scales",
     xAxis: {
-      type: "timeCat",
       tickCount: 5,
     },
   };
 
   return (
-    <div className=" h-40 w-90 bg-white border-solid">
+    <div className="charts">
       <Line {...config} />
     </div>
   );

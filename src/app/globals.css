@@ -13,19 +13,22 @@
     @apply flex justify-center align-middle m-auto;
   }
   .sidebar {
-    @apply border-solid border-2 border-sky-500 min-h-screen w-80 flex flex-col justify-center items-center;
+    @apply border-solid border-2 border-sky-500 min-h-screen w-1/3 flex flex-col justify-between items-center;
   }
   .divlogin {
-    @apply flex flex-row justify-center align-middle gap-1;
+    @apply flex flex-row justify-center align-middle gap-1 mb-12;
   }
   .mapclassname {
     @apply w-full h-full;
   }
   .div-charts-container {
-    @apply flex flex-col gap-2
+    @apply flex flex-col h-full mt-16 w-11/12
+  }
+  .div-checkbox {
+    @apply w-1/5 m-12
   }
   .charts {
-    @apply m-auto h-40 w-full bg-white border-solid
+    @apply m-auto h-64 w-full bg-white border-solid rounded-md
   }
 }
 

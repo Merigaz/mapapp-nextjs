@@ -27,12 +27,14 @@ export default function sidebarComponent() {
     ],
     keyTabs: "1",
   };
-  
+
   return (
     <ConfigProvider theme={theme}>
       <aside className="sidebar">
-        <TabsCustom {...TabsFormsProps} />
-        <LineChartComponentDate />
+        <div className="div-charts-container">
+          <TabsCustom {...TabsFormsProps} />
+          <LineChartComponentDate />
+        </div>
         <LogoutButton />
       </aside>
     </ConfigProvider>
