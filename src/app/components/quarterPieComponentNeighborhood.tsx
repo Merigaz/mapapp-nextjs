@@ -1,13 +1,27 @@
 "use client";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, MouseEvent } from "react";
 import { Pie } from "@ant-design/plots";
 import { FormType, NeighborhoodCount } from "@/types/interface";
 import { AddressDataContext } from "@/libs/createContext";
+import { Modal } from "antd";
 
 export default function QuarterPieComponentNeighborhood() {
   const [data, setData] = useState<{ type: string; value: number }[]>([]);
   const { addressData } = useContext(AddressDataContext);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
 
+  const handleOk = (e: MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = (e: MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    setIsModalOpen(false);
+  };
   useEffect(() => {
     const neighborhoodCount: NeighborhoodCount = {};
     addressData.forEach((address: FormType) => {
@@ -55,7 +69,15 @@ export default function QuarterPieComponentNeighborhood() {
   };
 
   return (
-    <div className="charts">
+    <div className="charts" onClick={showModal}>
+      <Modal
+        title="Barrios"
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+        <Pie {...config} />
+      </Modal>
       <Pie {...config} />
     </div>
   );

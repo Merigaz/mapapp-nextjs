@@ -8,6 +8,7 @@ import type { CheckboxChangeEvent } from "antd/es/checkbox";
 import type { CheckboxValueType } from "antd/es/checkbox/Group";
 
 export default function MapComponent() {
+  const CheckboxGroup = Checkbox.Group;
   const { addressData } = useContext(AddressDataContext);
   const plainOptions = Array.from(
     new Set(addressData.map((data) => data.neighborhood))
@@ -15,16 +16,12 @@ export default function MapComponent() {
   const { zoom } = useContext(ZoomContext);
   const [checkedList, setCheckedList] =
     useState<CheckboxValueType[]>(plainOptions);
-
   const checkAll = plainOptions.length === checkedList.length;
   const indeterminate =
     checkedList.length > 0 && checkedList.length < plainOptions.length;
-  const CheckboxGroup = Checkbox.Group;
-
   const onChange = (list: CheckboxValueType[]) => {
     setCheckedList(list);
   };
-
   const onCheckAllChange = (e: CheckboxChangeEvent) => {
     setCheckedList(e.target.checked ? plainOptions : []);
   };
@@ -38,12 +35,11 @@ export default function MapComponent() {
     east: -74.725747,
     west: -74.886714,
   };
-  console.log(checkedList, "caca checkedlist");
 
   const filteredMarkers = addressData.filter((marker) => {
     return checkedList.includes(marker.neighborhood);
   });
-  console.log(filteredMarkers, "Caca filtered markers");
+
 
   return (
     <GoogleMap
