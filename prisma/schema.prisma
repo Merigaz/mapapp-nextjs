@@ -57,6 +57,8 @@ model VotingPlace {
   id String @id @default(cuid())
   votingplace   String
   addressvotingplace String
+  lat Float
+  lng Float
   addresses Address[]
 }
 

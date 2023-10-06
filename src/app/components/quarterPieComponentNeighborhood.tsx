@@ -50,6 +50,7 @@ export default function QuarterPieComponentNeighborhood() {
     radius: 1,
     startAngle: Math.PI,
     endAngle: Math.PI * 1.5,
+    legend: false as const,
     label: {
       type: "inner",
       offset: "-8%",

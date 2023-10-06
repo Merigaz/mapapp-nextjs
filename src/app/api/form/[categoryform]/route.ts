@@ -15,10 +15,25 @@ export async function POST(
     switch (categoryform) {
       case "vote":
         const bodyvote: VotingPlace = await request.json();
+        const apiKeyVote = process.env.NEXT_PUBLIC_API_MAP_KEY;
+        let latcoordinateVote = 0;
+        let lngcoordinateVote = 0;
+        const responseApiVote = await fetch(
+          `https://maps.googleapis.com/maps/api/geocode/json?address=${bodyvote.addressvotingplace}"&key=${apiKeyVote}`
+        );
+        console.log ("caca")
+        if (responseApiVote.ok) {
+          const jsonData = await responseApiVote.json();
+          const { lat, lng } = jsonData.results[0].geometry.location;
+           latcoordinateVote = lat;
+           lngcoordinateVote = lng;
+        }
         const vote = await prisma.votingPlace.create({
           data: {
             votingplace: bodyvote.votingplace,
             addressvotingplace: bodyvote.addressvotingplace,
+            lat: latcoordinateVote,
+            lng: lngcoordinateVote,
           },
         });
         return new Response(JSON.stringify(vote), { status: 200 });

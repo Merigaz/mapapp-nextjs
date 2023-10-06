@@ -47,6 +47,7 @@ export default function QuarterPieComponentVotingplace() {
     data,
     angleField: "value",
     colorField: "type",
+    legend: false as const,
     radius: 1,
     startAngle: Math.PI,
     endAngle: Math.PI * 1.5,
