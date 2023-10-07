@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import SessionWrapper from "@/libs/sessionProvider";
-import "./globals.css";
-import SideBar from "./components/sidebarComponent";
-import MenuComponent from "./components/menuComponent";
+import "../../app/globals.css";
+import SideBar from "../components/sidebarComponent";
+import MenuComponent from "../components/menuComponent";
 import AntdThemeProvider from "@/libs/antdThemeProvider";
 import ContextProvider from "@/libs/createContext";
 
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   description: "Map app",
 };
 
-export default function RootLayout({
+export default function HomeLayout({
   children,
 }: {
   children: React.ReactNode;

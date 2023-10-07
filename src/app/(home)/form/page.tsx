@@ -1,10 +1,10 @@
 "use client";
 import { TabProps } from "@/types/interface";
-import TabsCustom from "../components/tabsCustom";
-import FormAddressComponent from "../components/formAddressComponent";
-import FormVotingPlaceComponent from "../components/formVotingPlaceComponent";
+import TabsCustom from "../../components/tabsCustom";
+import FormAddressComponent from "../../components/formAddressComponent";
+import FormVotingPlaceComponent from "../../components/formVotingPlaceComponent";
 import { ConfigProvider} from "antd";
-import theme from "../theme/themeConfig";
+import theme from "../../theme/themeConfig";
 
 export default function Form() {
   const TabsFormsProps: TabProps = {
