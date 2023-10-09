@@ -48,7 +48,7 @@ export default function LineChartComponentDate() {
   };
   const config = {
     data,
-    padding: 20,
+    padding: 36,
     xField: "Date",
     yField: "Scales",
     xAxis: {
