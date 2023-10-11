@@ -1,12 +1,25 @@
-"use client"
+"use client";
 import { Button, Card, Form, Input } from "antd";
+import { signIn } from "next-auth/react";
+import { useRef } from "react";
 
 export default function LoginPage() {
+  const email = useRef("");
+  const password = useRef("");
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const res = await signIn("credentials", {
+      email: email.current,
+      password: password.current,
+      redirect: false,
+      callbackUrl: "/"
+    });
+  };
   return (
     <div className="flex justify-center align-middle m-auto">
-   
-      <Card bordered={false} >
+      <Card bordered={false}>
         <Form
+          onSubmitCapture={onSubmit}
           layout="vertical"
           name="basic"
           labelCol={{ span: 8 }}
@@ -23,7 +36,7 @@ export default function LoginPage() {
               },
             ]}
           >
-            <Input placeholder="Correo electrónico" />
+            <Input placeholder="Correo electrónico" onChange={(e) => (email.current = e.target.value)} />
           </Form.Item>
 
           <Form.Item
@@ -32,7 +45,7 @@ export default function LoginPage() {
               { required: true, message: "Por favor ingrese su contraseña" },
             ]}
           >
-            <Input.Password placeholder="Contraseña" />
+            <Input.Password placeholder="Contraseña"  onChange={(e) => (password.current = e.target.value)} />
           </Form.Item>
 
           <Form.Item style={{ textAlign: "center" }}>
