@@ -1,5 +1,6 @@
 "use client";
-import { Button, Card, Form, Input } from "antd";
+import { GoogleOutlined } from "@ant-design/icons";
+import { Button, Card, Divider, Form, Input } from "antd";
 import { signIn } from "next-auth/react";
 import { useRef } from "react";
 
@@ -12,12 +13,16 @@ export default function LoginPage() {
       email: email.current,
       password: password.current,
       redirect: true,
-      callbackUrl: "/"
+      callbackUrl: "/",
     });
   };
   return (
     <div className="flex justify-center align-middle m-auto">
       <Card bordered={false}>
+        <Button onClick={() => signIn("google",{redirect: true, callbackUrl:"/"})} icon={<GoogleOutlined />}>
+          Inicia sesión con Google
+        </Button>
+        <Divider />
         <Form
           onSubmitCapture={onSubmit}
           layout="vertical"
@@ -36,7 +41,10 @@ export default function LoginPage() {
               },
             ]}
           >
-            <Input placeholder="Correo electrónico" onChange={(e) => (email.current = e.target.value)} />
+            <Input
+              placeholder="Correo electrónico"
+              onChange={(e) => (email.current = e.target.value)}
+            />
           </Form.Item>
 
           <Form.Item
@@ -45,7 +53,10 @@ export default function LoginPage() {
               { required: true, message: "Por favor ingrese su contraseña" },
             ]}
           >
-            <Input.Password placeholder="Contraseña"  onChange={(e) => (password.current = e.target.value)} />
+            <Input.Password
+              placeholder="Contraseña"
+              onChange={(e) => (password.current = e.target.value)}
+            />
           </Form.Item>
 
           <Form.Item style={{ textAlign: "center" }}>
