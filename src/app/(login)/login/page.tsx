@@ -19,21 +19,23 @@ export default function LoginPage() {
   return (
     <div className="flex justify-center align-middle m-auto">
       <Card bordered={false}>
-        <Button onClick={() => signIn("google",{redirect: true, callbackUrl:"/"})} icon={<GoogleOutlined />}>
+        <Button
+          onClick={() => signIn("google", { redirect: true, callbackUrl: "/" })}
+          icon={<GoogleOutlined />}
+        >
           Inicia sesión con Google
         </Button>
         <Divider />
         <Form
           onSubmitCapture={onSubmit}
           layout="vertical"
-          name="basic"
           labelCol={{ span: 8 }}
           style={{ maxWidth: 600 }}
-          initialValues={{ remember: true }}
           autoComplete="on"
+          requiredMark={false}
         >
           <Form.Item
-            name="username"
+            name="email"
             rules={[
               {
                 required: true,

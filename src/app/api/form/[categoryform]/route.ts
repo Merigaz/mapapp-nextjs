@@ -11,7 +11,7 @@ export async function POST(
   const session = await getServerSession(authOptions);
   const categoryform = params.categoryform;
 
-  if (session && session?.user.role === "admin") {
+  if (session) {
     switch (categoryform) {
       case "vote":
         const bodyvote: VotingPlace = await request.json();
@@ -97,7 +97,7 @@ export async function GET(
 ) {
   const session = await getServerSession(authOptions);
   const categoryform = params.categoryform;
-  if (session && session?.user.role === "admin") {
+  if (session) {
     switch (categoryform) {
       case "vote":
         const votingPlace = await prisma.votingPlace.findMany();
