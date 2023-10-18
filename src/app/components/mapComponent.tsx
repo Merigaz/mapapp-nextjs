@@ -89,7 +89,7 @@ export default function MapComponent() {
             onChange={onCheckAllChange}
             checked={checkAll}
           >
-            Check all
+            Marcar todos
           </Checkbox>
           <Divider></Divider>
           <CheckboxGroup
