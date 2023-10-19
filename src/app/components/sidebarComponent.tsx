@@ -7,7 +7,8 @@ import TabsCustom from "./tabsCustom";
 import { TabProps } from "@/types/interface";
 import QuarterPieComponentVotingplace from "./quarterPieComponentVotingplace";
 import LineChartComponentDate from "./lineChartComponentDate";
-import { useMediaQuery } from "usehooks-ts";
+import useMediaQuery from "@/libs/useMediaQuery";
+
 export default function sidebarComponent() {
   const matches = useMediaQuery("(min-width: 768px)");
   const TabsFormsProps: TabProps = {
