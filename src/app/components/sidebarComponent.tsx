@@ -7,8 +7,9 @@ import TabsCustom from "./tabsCustom";
 import { TabProps } from "@/types/interface";
 import QuarterPieComponentVotingplace from "./quarterPieComponentVotingplace";
 import LineChartComponentDate from "./lineChartComponentDate";
-
+import { useMediaQuery } from "usehooks-ts";
 export default function sidebarComponent() {
+  const matches = useMediaQuery("(min-width: 768px)");
   const TabsFormsProps: TabProps = {
     onChange: (key) => {
       console.log(key);
@@ -28,7 +29,7 @@ export default function sidebarComponent() {
     keyTabs: "1",
   };
 
-  return (
+  return matches ? (
     <ConfigProvider theme={theme}>
       <aside className="sidebar">
         <div className="div-charts-container">
@@ -38,5 +39,5 @@ export default function sidebarComponent() {
         <LogoutButton />
       </aside>
     </ConfigProvider>
-  );
+  ) : null;
 }
