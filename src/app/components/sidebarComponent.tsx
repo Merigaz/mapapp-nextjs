@@ -8,9 +8,15 @@ import { TabProps } from "@/types/interface";
 import QuarterPieComponentVotingplace from "./quarterPieComponentVotingplace";
 import LineChartComponentDate from "./lineChartComponentDate";
 import useMediaQuery from "@/libs/useMediaQuery";
+import { useEffect, useState } from "react";
 
-export default function sidebarComponent() {
-  const matches = useMediaQuery("(min-width: 768px)");
+export default function SidebarComponent() {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+  const matches = useMediaQuery("(min-width: 1040px)");
   const TabsFormsProps: TabProps = {
     onChange: (key) => {
       console.log(key);
@@ -30,15 +36,17 @@ export default function sidebarComponent() {
     keyTabs: "1",
   };
 
-  return matches ? (
-    <ConfigProvider theme={theme}>
-      <aside className="sidebar">
-        <div className="div-charts-container">
-          <TabsCustom {...TabsFormsProps} />
-          <LineChartComponentDate />
-        </div>
-        <LogoutButton />
-      </aside>
-    </ConfigProvider>
+  return isClient ? (
+    matches ? (
+      <ConfigProvider theme={theme}>
+        <aside className="sidebar">
+          <div className="div-charts-container">
+            <TabsCustom {...TabsFormsProps} />
+            <LineChartComponentDate />
+          </div>
+          <LogoutButton className="divlogin" />
+        </aside>
+      </ConfigProvider>
+    ) : null
   ) : null;
 }

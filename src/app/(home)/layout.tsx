@@ -26,7 +26,7 @@ export default function HomeLayout({
           <body className={inter.className}>
             <ContextProvider>
               <SideBar />
-              <main className="flex flex-col justify-end">
+              <main className="flex flex-col h-screen">
                 {children}
                 <MenuComponent />
               </main>

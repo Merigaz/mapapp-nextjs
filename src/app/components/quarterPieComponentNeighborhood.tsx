@@ -4,8 +4,10 @@ import { Pie } from "@ant-design/plots";
 import { FormType, NeighborhoodCount } from "@/types/interface";
 import { AddressDataContext } from "@/libs/createContext";
 import { Modal } from "antd";
+import useMediaQuery from "@/libs/useMediaQuery";
 
 export default function QuarterPieComponentNeighborhood() {
+  const matches = useMediaQuery("(min-width: 1040px)");
   const [data, setData] = useState<{ type: string; value: number }[]>([]);
   const { addressData } = useContext(AddressDataContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -69,17 +71,20 @@ export default function QuarterPieComponentNeighborhood() {
     },
   };
 
-  return (
+  return matches ? (
     <div className="charts" onClick={showModal}>
       <Modal
         title="Barrios"
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
+        footer={null}
       >
         <Pie {...config} />
       </Modal>
       <Pie {...config} />
     </div>
+  ) : (
+    <Pie {...config} />
   );
 }

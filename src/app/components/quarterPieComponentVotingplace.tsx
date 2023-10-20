@@ -4,8 +4,10 @@ import { Pie } from "@ant-design/plots";
 import { FormType, VotingPlaceCount } from "@/types/interface";
 import { AddressDataContext } from "@/libs/createContext";
 import { Modal } from "antd";
+import useMediaQuery from "@/libs/useMediaQuery";
 
 export default function QuarterPieComponentVotingplace() {
+  const matches = useMediaQuery("(min-width: 1040px)");
   const [data, setData] = useState<{ type: string; value: number }[]>([]);
   const { addressData } = useContext(AddressDataContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -32,12 +34,10 @@ export default function QuarterPieComponentVotingplace() {
         votingplaceCount[votingplace] = 1;
       }
     });
-    const formattedData = Object.keys(votingplaceCount).map(
-      (votingplace) => ({
-        type: votingplace,
-        value: votingplaceCount[votingplace],
-      })
-    );
+    const formattedData = Object.keys(votingplaceCount).map((votingplace) => ({
+      type: votingplace,
+      value: votingplaceCount[votingplace],
+    }));
 
     setData(formattedData);
   }, [addressData]);
@@ -69,17 +69,20 @@ export default function QuarterPieComponentVotingplace() {
     },
   };
 
-  return (
+  return matches ? (
     <div className="charts" onClick={showModal}>
-       <Modal
+      <Modal
         title="Lugar de votación"
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
+        footer={null}
       >
         <Pie {...config} />
       </Modal>
       <Pie {...config} />
     </div>
+  ) : (
+    <Pie {...config} />
   );
 }

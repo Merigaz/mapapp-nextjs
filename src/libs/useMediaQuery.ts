@@ -1,26 +1,25 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from "react";
 
 export default function useMediaQuery(query: string): boolean {
   const getMatches = (query: string): boolean => {
-    // Prevents SSR issues
-    if (typeof window !== 'undefined') {
-      return window.matchMedia(query).matches
+    if (typeof window !== "undefined") {
+      return window.matchMedia(query).matches;
     }
-    return false
-  }
+    return false;
+  };
 
-  const [matches, setMatches] = useState<boolean>(getMatches(query))
+  const [matches, setMatches] = useState<boolean>(getMatches(query));
 
   function handleChange() {
-    setMatches(getMatches(query))
+    setMatches(getMatches(query));
   }
   useEffect(() => {
     const matchMedia = window.matchMedia(query);
 
-    matchMedia.addEventListener('change', handleChange);
+    matchMedia.addEventListener("change", handleChange);
 
     return () => {
-      matchMedia.removeEventListener('change', handleChange);
+      matchMedia.removeEventListener("change", handleChange);
     };
   }, [query]);
 

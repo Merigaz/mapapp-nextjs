@@ -75,3 +75,6 @@ export interface VotingPlaceCount {
 export interface DateCount {
   [key: string]: number;
 }
+export interface logoutProp {
+  className: string
+}

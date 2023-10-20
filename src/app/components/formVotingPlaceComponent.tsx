@@ -103,8 +103,8 @@ export default function FormVotingPlaceComponent() {
         </div>
         </Form.Item>
         <Form.Item>
-          <Button type="primary" htmlType="submit">
-            Submit
+          <Button type="primary" htmlType="submit" className="bg-[#C3B984]">
+            Enviar
           </Button>
         </Form.Item>
       </Form>

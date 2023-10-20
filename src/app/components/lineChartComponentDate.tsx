@@ -5,8 +5,11 @@ import { DateCount } from "@/types/interface";
 import { Line } from "@ant-design/plots";
 import { Modal } from "antd";
 import { useContext, useEffect, useState } from "react";
+import useMediaQuery from "@/libs/useMediaQuery";
+
 
 export default function LineChartComponentDate() {
+  const matches = useMediaQuery("(min-width: 1040px)");
   const { addressData } = useContext(AddressDataContext);
   const [data, setData] = useState<{ Date: string; Scales: number }[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -56,17 +59,18 @@ export default function LineChartComponentDate() {
     },
   };
 
-  return (
+  return matches ? (
     <div className="charts" onClick={showModal}>
       <Modal
         title="Fecha de ingreso"
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
+        footer={null}
       >
         <Line {...config} />
       </Modal>
       <Line {...config} />
     </div>
-  );
+  ):<Line {...config} />
 }
